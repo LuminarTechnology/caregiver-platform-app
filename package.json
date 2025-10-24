@@ -78,6 +78,8 @@
   },
   "nx": {},
   "dependencies": {
+    "@tanstack/react-query": "^5.90.5",
+    "axios": "^1.12.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "~0.79.3"
