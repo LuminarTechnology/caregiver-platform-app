@@ -91,7 +91,7 @@ Other helpful commands:
 
 ## Contributing
 
-1. Create a feature branch from `develop`.
+1. Create a feature branch from `dev`.
 2. Add tests where appropriate and keep changes focused.
 3. Ensure formatting (Prettier) and linting rules pass.
 
