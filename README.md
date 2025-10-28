@@ -76,7 +76,7 @@ From the repo root (defined in `package.json`):
 Other helpful commands:
 
 - `npm run lint` — check and update lint issues in project
-- `npx nun format` — format the project according to `.prettierrc`
+- `npm nun format` — format the project according to `.prettierrc`
 
 ## Libraries and conventions
 
