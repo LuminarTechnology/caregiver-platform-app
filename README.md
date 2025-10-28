@@ -1,82 +1,112 @@
-# CaregiverPlatform
+# Caregiver Platform
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This repository contains the Caregiver Platform mobile apps and shared libraries. It's an Nx workspace that uses Expo for the mobile apps.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+Short summary:
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/expo?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Two Expo apps in this workspace: the client app (`app/client`) and the provider app (`app/provider`).
+- A shared library folder: `lib` for reusable UI, hooks, and config.
+- Workspace tooling includes Nx and Node workspaces; Expo and EAS are used for app development and builds.
 
-## Finish your CI setup
+## Repository layout
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/96sQlORey8)
+Top-level structure you'll work with:
 
+- `app/`
+  - `client/` — Expo app for clients (mobile)
+  - `provider/` — Expo app for providers (mobile)
+- `lib/` — shared code (hooks, UI, config, icons)
+- `package.json` — workspace scripts and workspaces
+- `nx.json` — Nx workspace config
 
-## Run tasks
+Open `app/client` and `app/provider` to see each app's source and app-specific config (they both contain an `app.json`, `eas.json`, and Metro config).
 
-To run the dev server for your app, use:
+## Prerequisites
 
-```sh
-npx nx serve caregiver-platform
+- Node.js (recommend LTS 18+ or current stable LTS)
+- npm or Yarn (this repo uses npm workspaces in `package.json` but Yarn also works)
+- Expo CLI (optional; you can use the local `expo` via npx) and EAS CLI for builds if you use EAS
+
+Install global tools you need (optional):
+
+```bash
+# install Expo CLI and EAS if you want them globally
+npm install -g expo-cli eas-cli
 ```
 
-To create a production bundle:
+## Quick start — local development
 
-```sh
-npx nx build caregiver-platform
+1. Install dependencies from the repo root:
+
+```bash
+npm install
 ```
 
-To see all available targets to run for a project, run:
+2. Start the client app dev server:
 
-```sh
-npx nx show project caregiver-platform
+```bash
+npm run client
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+This runs `cd app/client && expo start` (see `package.json` scripts). In the Expo terminal you can press `i` to open iOS simulator, `a` for Android, or scan the QR code with the Expo Go app.
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+3. Start the provider app in a separate terminal:
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/expo:app demo
+```bash
+npm run provider
 ```
 
-To generate a new library, use:
+## Build and release
 
-```sh
-npx nx g @nx/react:lib mylib
+This repository includes `eas.json` files in each app folder for EAS builds. Typical EAS workflow:
+
+1. Authenticate with EAS: `eas login`
+2. Configure credentials and app identifiers per platform
+3. From the app folder: `eas build -p ios` or `eas build -p android`
+
+Note: EAS builds require a configured Expo account and appropriate Apple/Google credentials.
+
+## Useful scripts
+
+From the repo root (defined in `package.json`):
+
+- `npm run client` — start Expo for the client app
+- `npm run provider` — start Expo for the provider app
+
+Other helpful commands:
+
+- `npx nx graph` — visualize workspace graph (requires Nx installed)
+- `npx nx affected:lint` / `npx nx affected:test` — run Nx tasks (if configured)
+
+## Libraries and conventions
+
+- Shared code lives under `lib/src` (hooks, UI components, icons, config). Use packages in `lib` to share logic and components between apps.
+- NativeWind (Tailwind for React Native) is configured in the workspace; see `tailwind.config.js` files in app and lib folders.
+- SVG assets are handled with `react-native-svg` and `react-native-svg-transformer` via the metro config in each app.
+
+## Development notes
+
+- If you add native modules, follow Expo docs for config plugins or switch to the bare workflow.
+- Keep platform-specific code inside each app; put cross-cutting UI, hooks and API clients in `lib`.
+
+## Contributing
+
+1. Create a feature branch from `develop`.
+2. Add tests where appropriate and keep changes focused.
+3. Ensure formatting (Prettier) and linting rules pass.
+
+## Troubleshooting
+
+- If Metro has stale cache: run `expo start -c` in the app folder.
+- If you run into dependency resolution issues with workspaces, try a clean install:
+
+```bash
+rm -rf node_modules
+npm install
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Where to look next
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/expo?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `app/client/src` and `app/provider/src` — app entrypoints and screens
+- `lib/src` — shared UI, hooks, and helpers
+- `package.json` — top-level scripts
