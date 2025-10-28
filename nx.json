@@ -23,7 +23,8 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      }
+      },
+      "exclude": ["lib/*"]
     },
     {
       "plugin": "@nx/expo/plugin",
@@ -46,6 +47,22 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["lib/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        }
+      }
     }
-  ]
+  ],
+  "generators": {
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "none"
+      }
+    }
+  }
 }
