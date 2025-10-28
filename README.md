@@ -75,8 +75,8 @@ From the repo root (defined in `package.json`):
 
 Other helpful commands:
 
-- `npx nx graph` — visualize workspace graph (requires Nx installed)
-- `npx nx affected:lint` / `npx nx affected:test` — run Nx tasks (if configured)
+- `npm run lint` — check and update lint issues in project
+- `npx nun format` — format the project according to `.prettierrc`
 
 ## Libraries and conventions
 
