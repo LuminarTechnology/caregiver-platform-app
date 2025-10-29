@@ -2,14 +2,19 @@ import '../../../global.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'react-native';
 import { queryClient } from '@lib/hooks/useApi';
-import HomeScreen from './screens/Home';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import RootStack from './navigation/RootStack';
 
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <StatusBar barStyle="dark-content" />
-      {/* Screens go here */}
-      <HomeScreen />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 };
