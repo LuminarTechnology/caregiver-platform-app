@@ -1,11 +1,11 @@
-import nx from '@nx/eslint-plugin';
+import nx from '@nx/eslint-plugin'
 
 export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist'],
+    ignores: ['**/dist']
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -14,16 +14,19 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          allow: [
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$',
+            'react-native'
+          ],
           depConstraints: [
             {
               sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
-            },
-          ],
-        },
-      ],
-    },
+              onlyDependOnLibsWithTags: ['*']
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     files: [
@@ -34,9 +37,9 @@ export default [
       '**/*.js',
       '**/*.jsx',
       '**/*.cjs',
-      '**/*.mjs',
+      '**/*.mjs'
     ],
     // Override or add rules here
-    rules: {},
-  },
-];
+    rules: {}
+  }
+]
