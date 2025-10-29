@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native';
-import { HomeFilledIcon } from '@lib/icons';
+import { View, Text } from 'react-native'
+import { HomeFilledIcon } from '@lib/icons'
 
 const HomeScreen = () => {
   return (
@@ -11,7 +11,7 @@ const HomeScreen = () => {
         Caregiver Client
       </Text>
     </View>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

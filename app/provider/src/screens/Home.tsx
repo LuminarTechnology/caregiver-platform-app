@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text } from 'react-native'
 
 const HomeScreen = () => {
   return (
@@ -7,7 +7,7 @@ const HomeScreen = () => {
         Caregiver Provider
       </Text>
     </View>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

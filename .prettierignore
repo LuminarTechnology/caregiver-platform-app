@@ -3,3 +3,33 @@
 /coverage
 /.nx/cache
 /.nx/workspace-data
+/node_modules
+/build
+
+# Ignore Android and iOS folders anywhere in the project
+**/android
+**/ios
+**/*.xcodeproj
+**/*.xcworkspace
+**/Pods
+**/*.pbxproj
+**/gradle
+**/*.gradle
+**/gradlew
+**/gradlew.bat
+**/*.jar
+**/*.keystore
+**/*.apk
+**/*.ipa
+**/*.dSYM
+
+# Additional native files
+**/LaunchScreen.storyboard
+**/Info.plist
+**/PrivacyInfo.xcprivacy
+**/Podfile
+**/Podfile.lock
+**/build.gradle
+**/gradle.properties
+**/settings.gradle
+**/proguard-rules.pro

@@ -1,1 +1,1 @@
-export { default as HomeFilledIcon } from './HomeFilled';
+export { default as HomeFilledIcon } from './HomeFilled'

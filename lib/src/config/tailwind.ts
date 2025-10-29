@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 export const createTailwindConfig = (
   overrides: Partial<Config> = {}
@@ -13,15 +13,15 @@ export const createTailwindConfig = (
           secondary: '#FFF7F9',
           muted: '#C3C4BF',
           foreground: '#FFF7F9',
-          background: '#ffffff',
-        },
-      },
+          background: '#ffffff'
+        }
+      }
     },
-    plugins: [],
-  };
+    plugins: []
+  }
 
   return {
     ...base,
-    ...overrides,
-  };
-};
+    ...overrides
+  }
+}

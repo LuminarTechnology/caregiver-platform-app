@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path, SvgProps } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path, SvgProps } from 'react-native-svg'
 
 function HomeFilledIcon(props: SvgProps) {
   return (
@@ -11,7 +11,7 @@ function HomeFilledIcon(props: SvgProps) {
         fill="#A41845"
       />
     </Svg>
-  );
+  )
 }
 
-export default HomeFilledIcon;
+export default HomeFilledIcon
