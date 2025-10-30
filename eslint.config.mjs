@@ -16,8 +16,7 @@ export default [
           enforceBuildableLibDependency: true,
           allow: [
             '^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$',
-            'react-native',
-            'expo-blur'
+            'react-native'
           ],
           depConstraints: [
             {
