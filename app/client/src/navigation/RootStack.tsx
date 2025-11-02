@@ -2,14 +2,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import SplashScreen from '../screens/SplashScreen'
 import OnboardingScreen from '../screens/OnboardingScreen'
-import HomeScreen from '../screens/Home'
+import BottomTabs from './BottomTabs'
 import ServicesScreen from '../screens/SelectServices'
 
 export type RootStackParamList = {
   Splash: undefined
   Service: undefined
   Onboarding: undefined
-  Home: undefined
+  Main: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -24,7 +24,7 @@ const RootStack = () => {
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Service" component={ServicesScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Main" component={BottomTabs} />
     </Stack.Navigator>
   )
 }
