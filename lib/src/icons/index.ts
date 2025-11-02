@@ -1,1 +1,8 @@
 export { default as HomeFilledIcon } from './HomeFilled'
+export { default as CalendarIcon } from './CalendarIcon'
+export { default as ClockIcon } from './ClockIcon'
+export { default as LocationIcon } from './LocationIcon'
+export { default as PhoneIcon } from './PhoneIcon'
+export { default as PlusCircleIcon } from './PlusCircleIcon'
+export { default as CheckedRadioIcon } from './CheckedRadioIcon'
+export { default as UncheckedRadioIcon } from './UncheckedRadioIcon'
