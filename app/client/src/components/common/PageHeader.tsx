@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import ArrowBackIcon from "@lib/icons/ArrowBackIcon";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
