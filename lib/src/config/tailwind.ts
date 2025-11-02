@@ -13,7 +13,8 @@ export const createTailwindConfig = (
           secondary: '#FFF7F9',
           muted: '#C3C4BF',
           foreground: '#FFF7F9',
-          background: '#ffffff'
+          background: '#ffffff',
+          defaultBlack: '#292A27'
         }
       }
     },
