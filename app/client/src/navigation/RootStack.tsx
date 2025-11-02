@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import HomeScreen from '../screens/Home'
+import BottomTabs from './BottomTabs'
 
 export type RootStackParamList = {
-  Home: undefined
+  Main: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -12,10 +12,10 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       id={undefined}
-      initialRouteName="Home"
+      initialRouteName="Main"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Main" component={BottomTabs} />
     </Stack.Navigator>
   )
 }
