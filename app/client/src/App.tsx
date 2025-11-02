@@ -5,6 +5,7 @@ import { queryClient } from '@lib/hooks/useApi'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import RootStack from './navigation/RootStack'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export const App = () => {
   return (
@@ -12,7 +13,9 @@ export const App = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <StatusBar barStyle="dark-content" />
         <NavigationContainer>
-          <RootStack />
+          <SafeAreaProvider>
+            <RootStack />
+          </SafeAreaProvider>
         </NavigationContainer>
       </GestureHandlerRootView>
     </QueryClientProvider>
