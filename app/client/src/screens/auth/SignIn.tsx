@@ -6,9 +6,10 @@ import { z } from 'zod'
 import FacebookIcon from '@lib/icons/FacebookIcon'
 import GoogleIcon from '@lib/icons/GoogleIcon'
 import AppleIcon from '@lib/icons/AppleIcon'
-import InputField from '@lib/ui/InputField'
+import InputField from 'app/client/src/components/ui/InputField'
 import { useNavigation } from '@react-navigation/native'
-import PageHeader from '@lib/ui/PageHeader'
+import Layout from '../../components/ui/Layout'
+import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
 
 const signInSchema = z.object({
   email: z
@@ -70,8 +71,8 @@ const SignIn = () => {
   }
 
   return (
+    <Layout pageTitle="CareGiver.com">
     <View className='flex-1'>
-      <PageHeader title="CareGiver.com" />
       <ScrollView className="flex-1 bg-white p-4">
         <Text className="mb-6 text-2xl font-bold text-gray-800">Log In</Text>
 
@@ -118,7 +119,9 @@ const SignIn = () => {
                     className={`h-5 w-5 rounded border-2 ${
                       value ? 'bg-primary border-primary' : 'border-gray-400'
                     }`}
-                  />
+                  >
+                    {value && <CheckMarkIcon width="24" height="24" fill="#666"/>}
+                  </View>
                 </TouchableOpacity>
                 <Text className="text-dark flex-1 text-base leading-5">
                   I agree to the <Text>Terms of Service</Text> and{' '}
@@ -207,6 +210,7 @@ const SignIn = () => {
         </View>
       </ScrollView>
     </View>
+    </Layout>
   )
 }
 

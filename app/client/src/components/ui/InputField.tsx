@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { Control, Controller, FieldError } from 'react-hook-form'
 import EyeIcon from '@lib/icons/EyeIcon'
 import EyeOffIcon from '@lib/icons/EyeOffIcon'
+import { useState } from 'react'
 
 interface InputFieldProps {
   control: Control<any>
@@ -36,6 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({
   leftIcon,
   rightIcon
 }) => {
+  const [isFocused, setIsFocused] = useState(false)
   return (
     <View className={`mb-2 ${className}`}>
       {label && (
@@ -48,26 +50,34 @@ const InputField: React.FC<InputFieldProps> = ({
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <View className={`flex-row items-center rounded-2xl border ${
-            error ? 'border-red-500' : 'border-gray-300'
-          }`}>
-            {leftIcon && (
-              <View className="pl-3">
-                {leftIcon}
-              </View>
-            )}
+          <View
+            className={`flex-row items-center rounded-2xl border ${
+              error
+                ? 'border-red-500'
+                : isFocused
+                ? 'border-primary'
+                : 'border-gray-300'
+            }`}
+          >
+            {leftIcon && <View className="pl-3">{leftIcon}</View>}
 
             <TextInput
               className={`flex-1 px-4 py-5 text-base ${
                 leftIcon ? 'pl-2' : ''
-              } ${(isPassword || rightIcon) ? 'pr-2' : ''}`}
+              } ${isPassword || rightIcon ? 'pr-2' : ''}`}
               placeholder={placeholder}
-              secureTextEntry={isPassword ? !isPasswordVisible : secureTextEntry}
+              secureTextEntry={
+                isPassword ? !isPasswordVisible : secureTextEntry
+              }
               keyboardType={keyboardType}
               autoCapitalize={autoCapitalize}
               value={value}
               onChangeText={onChange}
-              onBlur={onBlur}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => {
+                setIsFocused(false)
+                onBlur()
+              }}
             />
 
             {isPassword && onTogglePasswordVisibility ? (
@@ -82,9 +92,7 @@ const InputField: React.FC<InputFieldProps> = ({
                 )}
               </TouchableOpacity>
             ) : rightIcon ? (
-              <View className="px-3">
-                {rightIcon}
-              </View>
+              <View className="px-3">{rightIcon}</View>
             ) : null}
           </View>
         )}
