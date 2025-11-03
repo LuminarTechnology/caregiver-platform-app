@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import InputField from 'app/client/src/components/ui/InputField'
+import InputField from 'lib/src/ui/InputField'
 import { useNavigation } from '@react-navigation/native'
-import Layout from '../../components/ui/Layout'
 import UserIcon from '@lib/icons/UserIcon'
 import MailIcon from '@lib/icons/MailIcon'
 import PhoneIcon from '@lib/icons/PhoneIcon'
 import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
+import AuthLayout from '../../components/common/layouts/AuthLayout'
 
 const signUpSchema = z
   .object({
@@ -78,7 +78,7 @@ const SignUp = () => {
   }
 
   return (
-    <Layout pageTitle="CareGiver.com">
+    <AuthLayout pageTitle="CareGiver.com">
     <View className='flex-1'>
       <ScrollView className="flex-1 bg-white p-4">
         <Text className="mb-6 text-2xl font-bold text-gray-800">
@@ -209,7 +209,7 @@ const SignUp = () => {
         </View>
       </ScrollView>
     </View>
-    </Layout>
+    </AuthLayout>
   )
 }
 

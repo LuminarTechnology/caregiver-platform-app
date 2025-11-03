@@ -6,10 +6,10 @@ import { z } from 'zod'
 import FacebookIcon from '@lib/icons/FacebookIcon'
 import GoogleIcon from '@lib/icons/GoogleIcon'
 import AppleIcon from '@lib/icons/AppleIcon'
-import InputField from 'app/client/src/components/ui/InputField'
+import InputField from 'lib/src/ui/InputField'
 import { useNavigation } from '@react-navigation/native'
-import Layout from '../../components/ui/Layout'
 import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
+import AuthLayout from '../../components/common/layouts/AuthLayout'
 
 const signInSchema = z.object({
   email: z
@@ -71,7 +71,7 @@ const SignIn = () => {
   }
 
   return (
-    <Layout pageTitle="CareGiver.com">
+    <AuthLayout pageTitle="CareGiver.com">
     <View className='flex-1'>
       <ScrollView className="flex-1 bg-white p-4">
         <Text className="mb-6 text-2xl font-bold text-gray-800">Log In</Text>
@@ -210,7 +210,7 @@ const SignIn = () => {
         </View>
       </ScrollView>
     </View>
-    </Layout>
+    </AuthLayout>
   )
 }
 
