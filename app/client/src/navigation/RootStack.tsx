@@ -1,11 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import HomeScreen from '../screens/Home'
-import AuthStack from './AuthStack'
+import BottomTabs from './BottomTabs'
 
 export type RootStackParamList = {
-  Home: undefined,
-  AuthStack: undefined
+  Main: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -14,11 +12,10 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       id={undefined}
-      initialRouteName="AuthStack"
+      initialRouteName="Main"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="AuthStack" component={AuthStack} />
+      <Stack.Screen name="Main" component={BottomTabs} />
     </Stack.Navigator>
   )
 }
