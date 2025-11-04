@@ -15,20 +15,20 @@ const slides = [
     title: 'Care that fits your family’s needs',
     subtitle:
       'Search by service type, availability, and location to connect with trusted caregivers.',
-    image: require('../../assets/images/o1.jpg')
+    image: require('../../../assets/images/onboard_bg_1.jpg')
   },
   {
     id: 2,
     title: 'Book. Pay. Relax.',
     subtitle:
       'Seamless scheduling, secure payments, and real-time tracking — all in one app.',
-    image: require('../../assets/images/o2.jpg')
+    image: require('../../../assets/images/onboard_bg_2.jpg')
   },
   {
     id: 3,
     title: 'Your safety is our priority',
     subtitle: 'Verified caregivers and secure bookings you can rely on.',
-    image: require('../../assets/images/o3.jpg')
+    image: require('../../../assets/images/onboard_bg_3.jpg')
   }
 ]
 
