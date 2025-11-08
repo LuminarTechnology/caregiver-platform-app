@@ -18,12 +18,12 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       id={undefined}
-      initialRouteName="Splash"
+      initialRouteName="Main"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Service" component={ServicesScreen} />
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+      {/* <Stack.Screen name="Onboarding" component={OnboardingScreen} /> */}
       <Stack.Screen name="Main" component={BottomTabs} />
     </Stack.Navigator>
   )
