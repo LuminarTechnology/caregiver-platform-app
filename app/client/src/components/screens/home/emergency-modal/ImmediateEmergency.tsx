@@ -1,28 +1,29 @@
-import { CallIcon } from '@lib/icons';
+import { AmbulanceIcon, CallIcon } from '@lib/icons';
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+const primaryColor="#F51448";
 export const ImmediateEmergency = ({ onCall }) => (
-  <View className="px-5 py-4">
-    <View className="flex-row items-center mb-3">
-      <CallIcon/>
-      <Text className="ml-2 font-semibold text-gray-900">Immediate Emergency</Text>
+  <View className="p-4 bg-secondary rounded-2xl">
+    <View className="flex-row items-center mb-2">
+      <CallIcon size={16} strokeColor={primaryColor}/>
+      <Text className="ml-2 font-semibold text-[#F51448] text-lg">Immediate Emergency</Text>
     </View>
-    <Text className="text-sm text-gray-600 mb-3">Critical emergency services</Text>
+    <Text className="text-gray-900 mb-3">Critical emergency services</Text>
     <View className="flex-row gap-3">
       <TouchableOpacity 
         onPress={() => onCall('999')}
-        className="flex-1 bg-[#F51448] rounded-xl py-3.5 flex-row items-center justify-center"
+        className={`flex-1 bg-[${primaryColor}] rounded-xl py-3.5 flex-row items-center justify-center`}
       >
-        <CallIcon/>
+        <CallIcon size={16} strokeColor='white'/>
         <Text className="ml-2 text-white font-semibold">Call 999</Text>
       </TouchableOpacity>
       <TouchableOpacity 
         onPress={() => onCall('199')}
-        className="flex-1 bg-[#F51448] rounded-xl py-3.5 flex-row items-center justify-center"
+        className={`flex-1 bg-[${primaryColor}] rounded-xl py-3.5 flex-row items-center justify-center`}
       >
-        <Text className="mr-2 text-white text-lg">🚒</Text>
-        <Text className="text-white font-semibold">Fire 199</Text>
+        <AmbulanceIcon strokeColor='white'/>
+        <Text className="text-white font-semibold ml-2">Fire 199</Text>
       </TouchableOpacity>
     </View>
   </View>

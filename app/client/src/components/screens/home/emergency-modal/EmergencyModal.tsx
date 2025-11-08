@@ -22,7 +22,7 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({ visible, onClose
       <View className="flex-1 bg-black/50">
         <View className="mt-auto bg-white rounded-t-3xl max-h-[90%]">
           <ModalHeader onClose={onClose} />
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView showsVerticalScrollIndicator={false} className='p-4'>
             <ImmediateEmergency onCall={handleCall} />
             <NearbyHospitals />
             <AmbulanceServices />
