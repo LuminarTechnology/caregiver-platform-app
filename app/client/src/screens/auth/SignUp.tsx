@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,6 +10,7 @@ import MailIcon from '@lib/icons/MailIcon'
 import PhoneIcon from '@lib/icons/PhoneIcon'
 import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
 import AuthLayout from '../../components/common/layouts/AuthLayout'
+import { authService } from '@lib/api'
 
 const signUpSchema = z
   .object({
@@ -46,6 +47,7 @@ const signUpSchema = z
 type SignUpFormData = z.infer<typeof signUpSchema>
 
 const SignUp = () => {
+  const { mutate: register, isPending, error } = authService.register()
   const navigation = useNavigation()
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
@@ -73,142 +75,159 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     console.log('Form data:', data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log('Registration successful!')
+    const { agreed, confirmPassword, ...rest } = data
+    register(rest, {
+      onSuccess: (data) => {
+        console.log(data);
+        (navigation as any).navigate('AuthStack', {
+          screen: 'OTPVerification',
+          params: {
+            email: data.email,
+            phone: data.phone
+          }
+        })
+      },
+      onError: (error) => {
+        Alert.alert('Error', error.message)
+      }
+    })
   }
 
   return (
     <AuthLayout pageTitle="CareGiver.com">
-    <View className='flex-1'>
-      <ScrollView className="flex-1 bg-white p-4">
-        <Text className="mb-6 text-2xl font-bold text-gray-800">
-          Create Account
-        </Text>
+      <View className="flex-1">
+        <ScrollView className="flex-1 bg-white p-4">
+          <Text className="mb-6 text-2xl font-bold text-gray-800">
+            Create Account
+          </Text>
 
-        <InputField
-          control={control}
-          name="fullName"
-          placeholder="Enter your full name"
-          autoCapitalize="words"
-          error={errors.fullName}
-          className="mb-4"
-          rightIcon={<UserIcon width="24" height="24" fill="#666"/>}
-        />
-
-        <InputField
-          control={control}
-          name="email"
-          placeholder="Enter your email"
-          keyboardType="email-address"
-          error={errors.email}
-          className="mb-4"
-          rightIcon={<MailIcon width="24" height="24" fill="#666"/>}
-        />
-
-        <InputField
-          control={control}
-          name="phone"
-          placeholder="Enter your phone number"
-          keyboardType="phone-pad"
-          error={errors.phone}
-          className="mb-4"
-          rightIcon={<PhoneIcon width="24" height="24" fill="#666"/>}
-        />
-
-        <InputField
-          control={control}
-          name="password"
-          placeholder="Create password"
-          isPassword={true}
-          isPasswordVisible={isPasswordVisible}
-          onTogglePasswordVisibility={() =>
-            setIsPasswordVisible(!isPasswordVisible)
-          }
-          error={errors.password}
-          className="mb-4"
-        />
-
-        <InputField
-          control={control}
-          name="confirmPassword"
-          placeholder="Confirm password"
-          isPassword={true}
-          isPasswordVisible={isConfirmPasswordVisible}
-          onTogglePasswordVisibility={() =>
-            setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-          }
-          error={errors.confirmPassword}
-          className="mb-6"
-        />
-
-        <View className="mb-4">
-          <Controller
+          <InputField
             control={control}
-            name="agreed"
-            render={({ field: { onChange, value } }) => (
-              <View className="flex-row items-center">
-                <TouchableOpacity
-                  onPress={() => onChange(!value)}
-                  className="mr-3 mt-0.5"
-                >
-                  <View
-                    className={`h-5 w-5 rounded border-2 ${
-                      value ? 'bg-primary border-primary' : 'border-gray-400'
-                    }`}
-                  >
-                    {value && <CheckMarkIcon width="24" height="24" fill="#666"/>}
-                  </View>
-                </TouchableOpacity>
-                <Text className="text-dark flex-1 text-base leading-5">
-                  I agree to the <Text>Terms of Service</Text> and{' '}
-                  <Text>Privacy Policy</Text>
-                </Text>
-              </View>
-            )}
+            name="fullName"
+            placeholder="Enter your full name"
+            autoCapitalize="words"
+            error={errors.fullName}
+            className="mb-4"
+            rightIcon={<UserIcon width="24" height="24" fill="#666" />}
           />
-          {errors.agreed && (
-            <Text className="mt-1 text-sm text-red-500">
-              {errors.agreed.message}
-            </Text>
-          )}
-        </View>
 
-        <TouchableOpacity
-          className={`mb-6 items-center justify-center rounded-2xl p-5 ${
-            agreed && isValid ? 'bg-primary' : 'bg-gray-400'
-          }`}
-          onPress={handleSubmit(onSubmit)}
-          disabled={!agreed || !isValid || isSubmitting}
-        >
-          <Text className="text-lg font-bold text-white">
-            {isSubmitting ? 'Creating Account...' : 'Sign Up'}
-          </Text>
-        </TouchableOpacity>
+          <InputField
+            control={control}
+            name="email"
+            placeholder="Enter your email"
+            keyboardType="email-address"
+            error={errors.email}
+            className="mb-4"
+            rightIcon={<MailIcon width="24" height="24" fill="#666" />}
+          />
 
-        <View className="mb-8 flex-row justify-center">
-          <Text className="mr-1 text-base text-gray-700">
-            Already have an account?
-          </Text>
-          <TouchableOpacity
-            onPress={() =>
-              (navigation as any).navigate('AuthStack', { screen: 'SignIn' })
+          <InputField
+            control={control}
+            name="phone"
+            placeholder="Enter your phone number"
+            keyboardType="phone-pad"
+            error={errors.phone}
+            className="mb-4"
+            rightIcon={<PhoneIcon width="24" height="24" fill="#666" />}
+          />
+
+          <InputField
+            control={control}
+            name="password"
+            placeholder="Create password"
+            isPassword={true}
+            isPasswordVisible={isPasswordVisible}
+            onTogglePasswordVisibility={() =>
+              setIsPasswordVisible(!isPasswordVisible)
             }
+            error={errors.password}
+            className="mb-4"
+          />
+
+          <InputField
+            control={control}
+            name="confirmPassword"
+            placeholder="Confirm password"
+            isPassword={true}
+            isPasswordVisible={isConfirmPasswordVisible}
+            onTogglePasswordVisibility={() =>
+              setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+            }
+            error={errors.confirmPassword}
+            className="mb-6"
+          />
+
+          <View className="mb-4">
+            <Controller
+              control={control}
+              name="agreed"
+              render={({ field: { onChange, value } }) => (
+                <View className="flex-row items-center">
+                  <TouchableOpacity
+                    onPress={() => onChange(!value)}
+                    className="mr-3 mt-0.5"
+                  >
+                    <View
+                      className={`h-5 w-5 rounded border-2 ${
+                        value ? 'bg-primary border-primary' : 'border-gray-400'
+                      }`}
+                    >
+                      {value && (
+                        <CheckMarkIcon width="24" height="24" fill="#666" />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                  <Text className="text-dark flex-1 text-base leading-5">
+                    I agree to the <Text>Terms of Service</Text> and{' '}
+                    <Text>Privacy Policy</Text>
+                  </Text>
+                </View>
+              )}
+            />
+            {errors.agreed && (
+              <Text className="mt-1 text-sm text-red-500">
+                {errors.agreed.message}
+              </Text>
+            )}
+          </View>
+
+          <TouchableOpacity
+            className={`mb-6 items-center justify-center rounded-2xl p-5 ${
+              agreed && isValid ? 'bg-primary' : 'bg-gray-400'
+            }`}
+            onPress={handleSubmit(onSubmit)}
+            disabled={!agreed || !isValid || isSubmitting}
           >
-            <Text className="text-primary text-base font-semibold">
-              Sign In
+            <Text className="text-lg font-bold text-white">
+              {isSubmitting ? 'Creating Account...' : 'Sign Up'}
             </Text>
           </TouchableOpacity>
-        </View>
-        <View className="items-center">
-          <Text className="text-center text-base leading-5 text-gray-600">
-            By signing up, you agree to our{' '}
-            <Text className="text-primary underline">Terms of Use</Text>.{'\n'}
-            See our{' '}
-            <Text className="text-primary underline">Privacy Policy</Text>.
-          </Text>
-        </View>
-      </ScrollView>
-    </View>
+
+          <View className="mb-8 flex-row justify-center">
+            <Text className="mr-1 text-base text-gray-700">
+              Already have an account?
+            </Text>
+            <TouchableOpacity
+              onPress={() =>
+                (navigation as any).navigate('AuthStack', { screen: 'SignIn' })
+              }
+            >
+              <Text className="text-primary text-base font-semibold">
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View className="items-center">
+            <Text className="text-center text-base leading-5 text-gray-600">
+              By signing up, you agree to our{' '}
+              <Text className="text-primary underline">Terms of Use</Text>.
+              {'\n'}
+              See our{' '}
+              <Text className="text-primary underline">Privacy Policy</Text>.
+            </Text>
+          </View>
+        </ScrollView>
+      </View>
     </AuthLayout>
   )
 }

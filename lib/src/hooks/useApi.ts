@@ -4,7 +4,12 @@ import { useQuery, useMutation, QueryClient } from '@tanstack/react-query'
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 30 * 1000
+    },
+    mutations: {
+      retry: 0
     }
   }
 })
@@ -45,8 +50,11 @@ export function useApiQuery<T>({ key, url, enabled = true }: ApiQuery) {
 export function useApiMutation<T, U>({
   url,
   method = 'POST',
-  invalidate
-}: ApiMutation) {
+  invalidate,
+  onSuccess
+}: ApiMutation & {
+  onSuccess?: (data: U) => void | Promise<void>
+}) {
   return useMutation<U, Error, T>({
     mutationFn: async (data: T) => {
       const response = await client<U>({
@@ -54,9 +62,12 @@ export function useApiMutation<T, U>({
         url,
         data
       })
+      console.log(response);
       return response.data
     },
-    onSuccess: () => {
+    onSuccess: async (data) => {
+      await onSuccess?.(data)
+      
       invalidate?.forEach((key) =>
         queryClient.invalidateQueries({ queryKey: key })
       )
