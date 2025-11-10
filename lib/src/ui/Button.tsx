@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
 type ButtonProps = {
   title: string
@@ -19,11 +19,12 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <Pressable
-      className={`border-primary flex h-[56px] items-center justify-center rounded-2xl border-[1.5px] ${
+      className={`border-primary flex h-[56px] flex-row items-center justify-center gap-2 rounded-2xl border-[1.5px] ${
         buttonPrimary && 'bg-primary'
       } ${buttonSecondary && 'bg-secondary'} ${className}`}
       onPress={onPress}
     >
+      {children}
       <Text
         className={`text-lg font-medium ${
           buttonPrimary ? 'text-white' : 'text-primary'
