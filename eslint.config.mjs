@@ -19,12 +19,8 @@ export default [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
-      '@nx/enforce-module-boundaries': 'off'
-    }
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    rules: {
+      // Disable Nx module boundaries rule
+      '@nx/enforce-module-boundaries': 'off',
       // Unused code
       '@typescript-eslint/no-unused-vars': [
         'warn',
