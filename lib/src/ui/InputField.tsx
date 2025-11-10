@@ -8,6 +8,7 @@ interface InputFieldProps {
   control: Control<any>
   name: string
   label?: string
+  labelStyle?: object
   placeholder: string
   secureTextEntry?: boolean
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad'
@@ -19,12 +20,14 @@ interface InputFieldProps {
   className?: string
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
+  style?: object
 }
 
 const InputField: React.FC<InputFieldProps> = ({
   control,
   name,
   label,
+  labelStyle,
   placeholder,
   secureTextEntry = false,
   keyboardType = 'default',
@@ -35,17 +38,17 @@ const InputField: React.FC<InputFieldProps> = ({
   onTogglePasswordVisibility,
   className = '',
   leftIcon,
-  rightIcon
+  rightIcon,
+  style
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   return (
     <View className={`mb-2 ${className}`}>
       {label && (
-        <Text className="mb-2 text-base font-medium text-gray-700">
+        <Text className="mb-2 text-base font-medium" style={labelStyle}>
           {label}
         </Text>
       )}
-
       <Controller
         control={control}
         name={name}
@@ -65,6 +68,14 @@ const InputField: React.FC<InputFieldProps> = ({
               className={`flex-1 px-4 py-5 text-base ${
                 leftIcon ? 'pl-2' : ''
               } ${isPassword || rightIcon ? 'pr-2' : ''}`}
+              style={[
+                {
+                  flex: 1,
+                  paddingHorizontal: 16,
+                  paddingVertical: 12
+                },
+                style
+              ]}
               placeholder={placeholder}
               secureTextEntry={
                 isPassword ? !isPasswordVisible : secureTextEntry

@@ -10,6 +10,7 @@ interface TimeFieldProps {
   control: Control<any>
   name: string
   label?: string
+  labelStyle?: object
 }
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -20,7 +21,12 @@ const formatTime = (date?: Date | null) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
 
-const TimeField: React.FC<TimeFieldProps> = ({ control, name, label }) => {
+const TimeField: React.FC<TimeFieldProps> = ({
+  control,
+  name,
+  label,
+  labelStyle
+}) => {
   const [show, setShow] = useState(false)
 
   return (
@@ -30,7 +36,7 @@ const TimeField: React.FC<TimeFieldProps> = ({ control, name, label }) => {
       render={({ field: { value, onChange } }) => (
         <View>
           {label && (
-            <Text className="text-defaultBlack mb-2 text-base font-medium">
+            <Text className="mb-2 text-base font-medium" style={labelStyle}>
               {label}
             </Text>
           )}

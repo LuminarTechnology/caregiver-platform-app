@@ -4,12 +4,14 @@ import SplashScreen from '../screens/SplashScreen'
 import OnboardingScreen from '../screens/OnboardingScreen'
 import BottomTabs from './BottomTabs'
 import ServicesScreen from '../screens/SelectServices'
+import BookCaregiverScreen from '../screens/BookCaregiverChild/BookCaregiverScreen'
 
 export type RootStackParamList = {
   Splash: undefined
   Service: undefined
   Onboarding: undefined
   Main: undefined
+  BookCare: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -25,6 +27,7 @@ const RootStack = () => {
       <Stack.Screen name="Service" component={ServicesScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Main" component={BottomTabs} />
+      <Stack.Screen name="BookCare" component={BookCaregiverScreen} />
     </Stack.Navigator>
   )
 }

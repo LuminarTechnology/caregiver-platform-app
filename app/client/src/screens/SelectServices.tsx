@@ -9,6 +9,7 @@ export default function ServicesScreen() {
 
   const handleSelect = () => {
     navigation.navigate('Onboarding' as never)
+    // navigation.navigate('BookCare' as never)
   }
 
   return (
@@ -50,6 +51,7 @@ export default function ServicesScreen() {
           users="5,432+ Users"
           status="Active"
           onPress={handleSelect}
+          className="mb-4"
         />
 
         <ServiceCard
