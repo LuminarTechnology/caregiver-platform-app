@@ -5,38 +5,42 @@ export default [
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist']
+    ignores: [
+      '**/dist',
+      '**/node_modules/**',
+      'node_modules',
+      '**/.expo/**',
+      '**/.git/**',
+      '**/build/**',
+      '**/android/**',
+      '**/ios/**'
+    ]
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
-          depConstraints: [
-            {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*']
-            }
-          ]
-        }
-      ]
+      '@nx/enforce-module-boundaries': 'off'
     }
   },
   {
-    files: [
-      '**/*.ts',
-      '**/*.tsx',
-      '**/*.cts',
-      '**/*.mts',
-      '**/*.js',
-      '**/*.jsx',
-      '**/*.cjs',
-      '**/*.mjs'
-    ],
-    // Override or add rules here
-    rules: {}
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      // Unused code
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
+      ],
+      'no-unused-vars': 'off',
+
+      // Type safety basics
+      '@typescript-eslint/no-explicit-any': 'warn',
+
+      // Common bugs
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-debugger': 'warn',
+      eqeqeq: ['error', 'always'],
+      'no-var': 'error',
+      'prefer-const': 'warn'
+    }
   }
 ]
