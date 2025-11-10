@@ -7,6 +7,7 @@ import InputField from '../../../../../lib/src/ui/InputField'
 import DatePickerField from '../../../../../lib/src/ui/DateField'
 import TimeField from '../../../../../lib/src/ui/TimeField'
 import { DownArrowIcon, MailIcon, LocationIcon } from '@lib/icons'
+import { useNavigation } from '@react-navigation/native'
 
 type FormValues = {
   date: Date
@@ -18,6 +19,7 @@ type FormValues = {
 }
 
 const BookCaregiverScreen = () => {
+  const navigation = useNavigation()
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       date: new Date(),
@@ -30,7 +32,7 @@ const BookCaregiverScreen = () => {
   })
 
   const handleNext = (data: FormValues) => {
-    console.log('Form data:', data)
+    navigation.navigate('BookCare2' as never)
   }
 
   const handleCancel = () => {
