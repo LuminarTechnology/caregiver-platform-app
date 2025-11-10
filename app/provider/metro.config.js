@@ -18,11 +18,18 @@ const projectRoot = path.resolve(__dirname, '../../')
 const customConfig = {
   cacheVersion: 'provider',
   transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer')
+    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true
+      }
+    })
   },
   resolver: {
     assetExts: assetExts.filter((ext) => ext !== 'svg'),
-    sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg']
+    sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
+    unstable_enablePackageExports: false
   }
 }
 
