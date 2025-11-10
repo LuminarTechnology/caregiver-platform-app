@@ -4,12 +4,14 @@ import SignIn from '../screens/auth/SignIn'
 import SignUp from '../screens/auth/SignUp'
 import OnboardingScreen from '../screens/OnboardingScreen'
 import SplashScreen from '../screens/SplashScreen'
+import OTPVerification from "../screens/auth/OTPVerification";
 
 export type AuthStackParamList = {
   Splash: undefined
   Onboarding: undefined
   SignIn: undefined
   SignUp: undefined
+  OTPVerification: undefined
 }
 
 const Stack = createNativeStackNavigator<AuthStackParamList>()
@@ -21,6 +23,7 @@ export default function AuthStack() {
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="OTPVerification" component={OTPVerification} />
     </Stack.Navigator>
   )
 }

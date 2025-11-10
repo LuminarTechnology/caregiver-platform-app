@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,6 +10,7 @@ import MailIcon from '@lib/icons/MailIcon'
 import PhoneIcon from '@lib/icons/PhoneIcon'
 import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
 import AuthLayout from '../../components/common/layouts/AuthLayout'
+import { authService } from '@lib/api'
 
 const signUpSchema = z
   .object({
@@ -46,6 +47,7 @@ const signUpSchema = z
 type SignUpFormData = z.infer<typeof signUpSchema>
 
 const SignUp = () => {
+  const { mutate: register, isPending, error } = authService.register()
   const navigation = useNavigation()
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
@@ -73,8 +75,22 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     console.log('Form data:', data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log('Registration successful!')
+    const { agreed, confirmPassword, ...rest } = data
+    register(rest, {
+      onSuccess: (data) => {
+        console.log(data);
+        (navigation as any).navigate('AuthStack', {
+          screen: 'OTPVerification',
+          params: {
+            email: data.email,
+            phone: data.phone
+          }
+        })
+      },
+      onError: (error) => {
+        Alert.alert('Error', error.message)
+      }
+    })
   }
 
   return (
@@ -193,7 +209,7 @@ const SignUp = () => {
             </Text>
             <TouchableOpacity
               onPress={() =>
-                (navigation as any).navigate('SignIn', { screen: 'SignIn' })
+                (navigation as any).navigate('AuthStack', { screen: 'SignIn' })
               }
             >
               <Text className="text-primary text-base font-semibold">
