@@ -76,7 +76,23 @@ From the repo root (defined in `package.json`):
 Other helpful commands:
 
 - `npm run lint` — check and update lint issues in project
-- `npm nun format` — format the project according to `.prettierrc`
+- `npm run lint:fix` — auto-fix linting issues where possible
+- `npm run format` — format the project according to `.prettierrc`
+
+## Git Hooks (Husky)
+
+This project uses Husky and lint-staged to enforce code quality:
+
+- **pre-commit**: Automatically runs ESLint and Prettier on staged files before each commit
+- Configured in `.lintstagedrc.js` to lint and format only changed files
+
+The hooks are automatically installed when you run `npm install` (via the `prepare` script).
+
+If you need to bypass hooks (not recommended):
+
+```bash
+git commit --no-verify
+```
 
 ## Libraries and conventions
 
