@@ -8,7 +8,9 @@
     "format": "prettier --write .",
     "lint": "eslint app/*/src lib/src --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint app/*/src lib/src --ext .ts,.tsx,.js,.jsx --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "private": true,
   "dependencies": {
@@ -39,7 +41,6 @@
     "react-native-svg": "~15.11.2",
     "react-native-svg-transformer": "~1.5.1",
     "react-native-web": "~0.20.0",
-    "react-native-worklets": "^0.5.2",
     "tailwindcss": "^3.4.18",
     "zod": "^4.1.12"
   },
@@ -54,6 +55,7 @@
     "@nx/js": "22.0.1",
     "@nx/react": "22.0.1",
     "@nx/workspace": "22.0.1",
+    "@react-native-community/cli": "^20.0.2",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
