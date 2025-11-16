@@ -24,3 +24,14 @@ export { default as CrossIcon } from "./CrossIcon"
 export { default as AmbulanceIcon } from "./AmbulanceIcon"
 export { default as ShieldIcon } from "./ShieldIcon"
 export { default as WarningIcon } from "./WarningIcon"
+export { default as FilterIcon } from './FilterIcon'
+export { default as ArrowDownIcon } from './ArrowDownIcon'
+export { default as EyeIcon } from './EyeIcon'
+export { default as EyeOffIcon } from './EyeOffIcon'
+export { default as SearchIconSmall } from './SearchSmallIcon'
+export { default as CloseFilled } from './CloseFilled'
+export { default as CheckedSquareIcon } from './CheckedSquareIcon'
+export { default as UncheckedSquareIcon } from './UncheckedSquareIcon'
+export { default as StarFilled } from './StarFilled'
+export { default as ArrowUpIcon } from './ArrowUpIcon'
+export { default as VerifiedIcon } from './VerifiedIcon'
