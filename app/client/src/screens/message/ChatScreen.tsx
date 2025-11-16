@@ -10,10 +10,9 @@ import {
 import MessageBubble, {
   ChatMessage
 } from '../../components/message/MessageBubble'
-import ChatHeader from '../../components/message/ChatHeader'
 import ChatInput from '../../components/message/ChatInput'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import ChatLayout from '../../components/common/layouts/ChatLayout'
 
 const INITIAL_MESSAGES: ChatMessage[] = [
   { id: 't1', text: '14 FEB', time: '', isSent: false, status: 'read' },
@@ -34,59 +33,28 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     avatarUrl: 'https://i.pravatar.cc/150?img=4'
   },
   { id: 't2', text: 'Yesterday', time: '', isSent: false, status: 'read' },
-  { id: '3', text: 'Hi', time: '10:10', isSent: true, status: 'read' },
-  {
-    id: '4',
-    text: 'I think the idea that things are chang isn t good',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  },
-  {
-    id: '5',
-    text: 'I think the idea that things are chaning isnt good',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  },
-  {
-    id: '6',
-    text: 'Tell me more about your  idea',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  },
-  {
-    id: '7',
-    text: 'Tell me more about your  idea. Tell me more about your  idea',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  },
-  {
-    id: '8',
-    text: 'Tell me more about your  idea. Tell me more about your  idea',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  },
-  {
-    id: '10',
-    text: 'Tell me more about your  idea. Tell me more about your  idea',
-    time: '10:10',
-    isSent: true,
-    status: 'read'
-  }
+  { id: '3', text: 'Hi', time: '10:10', isSent: true, status: 'read' }
 ]
 
 const ChatScreen: React.FC = () => {
   const navigation = useNavigation()
-  const [messages, setMessages] = useState(INITIAL_MESSAGES)
+  const route = useRoute()
+  const params =
+    (route as unknown as { params?: Record<string, unknown> }).params ?? {}
+  const userName =
+    typeof params.userName === 'string' ? params.userName : 'Zephaniah L.'
+  const isOnline = typeof params.isOnline === 'boolean' ? params.isOnline : true
+  const avatarUrl =
+    typeof params.avatarUrl === 'string'
+      ? params.avatarUrl
+      : 'https://i.pravatar.cc/150?img=2'
+
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES)
 
   const handleSend = (text: string) => {
     const newMessage: ChatMessage = {
       id: String(Date.now()),
-      text: text,
+      text,
       time: new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
@@ -95,7 +63,8 @@ const ChatScreen: React.FC = () => {
       isSent: true,
       status: 'sent'
     }
-    setMessages((prev) => [...prev, newMessage])
+    // prepend so inverted FlatList shows newest at bottom
+    setMessages((prev) => [newMessage, ...prev])
   }
 
   const renderItem: ListRenderItem<ChatMessage> = ({ item }) => {
@@ -112,30 +81,30 @@ const ChatScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView className="bg-backgroundSecondary flex-1">
-      <ChatHeader
-        userName="Zephaniah L."
-        isOnline={true}
-        avatarUrl="https://i.pravatar.cc/150?img=2"
-        onBackPress={() => navigation.goBack()}
-      />
+    <ChatLayout
+      userName={userName}
+      isOnline={isOnline}
+      avatarUrl={avatarUrl}
+      onBackPress={() => navigation.goBack()}
+    >
+      <View className="bg-backgroundSecondary flex-1">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+        >
+          <FlatList
+            data={messages}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            className="mb-4 flex-1 px-4"
+            inverted
+          />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
-      >
-        <FlatList
-          data={messages.slice().reverse()}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          className="mb-4 flex-1 px-4"
-          inverted
-        />
-
-        <ChatInput onSend={handleSend} />
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <ChatInput onSend={handleSend} />
+        </KeyboardAvoidingView>
+      </View>
+    </ChatLayout>
   )
 }
 

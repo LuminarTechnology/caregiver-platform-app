@@ -19,12 +19,12 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend }) => {
   }
 
   return (
-    <View className="flex-row items-end border-t border-gray-100 bg-white px-4 py-3">
+    <View className="flex-row items-end border-t border-gray-100 bg-white px-4 py-3 pb-9">
       <TouchableOpacity className="mb-1 p-2">
         <PaperClipIcon height={20} width={20} />
       </TouchableOpacity>
 
-      <View className="mx-2 flex-1 flex-row items-center rounded-full bg-gray-100 px-4">
+      <View className="mx-2 flex-1 flex-row items-center rounded-xl bg-gray-100 px-4">
         <TextInput
           className="max-h-32 flex-1 py-3 text-base text-gray-800"
           placeholder="Type a message..."
