@@ -1,5 +1,5 @@
 {
-  "name": "provider",
+  "name": "@caregiver-platform/provider",
   "version": "0.0.1",
   "private": true,
   "scripts": {

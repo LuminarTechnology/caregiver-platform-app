@@ -10,7 +10,7 @@ export type AuthStackParamList = {
   OTPVerification: undefined;
 };
 
-const Stack = createNativeStackNavigator<AuthStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>()
 
 export default function AuthStack() {
   return (
@@ -19,5 +19,5 @@ export default function AuthStack() {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="OTPVerification" component={OTPVerification} />
     </Stack.Navigator>
-  );
+  )
 }
