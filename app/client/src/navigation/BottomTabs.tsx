@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from '../screens/Home'
 import SearchScreen from '../screens/Search'
 import MessageScreen from '../screens/Message'
-import MyBookingsScreen from '../screens/MyBookings'
 import ProfileScreen from '../screens/Profile'
 import HomeIcon from '@lib/icons/Home'
 import {
@@ -18,12 +17,13 @@ import {
 } from '@lib/icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { View } from 'react-native'
+import MyBookingsStack from './MyBookingsStack'
 
 export type BottomTabsParamList = {
   Home: undefined
   Search: undefined
   Message: undefined
-  MyBookings: undefined
+  Bookings: undefined
   Profile: undefined
 }
 
@@ -70,7 +70,7 @@ export default function BottomTabs() {
             case 'Message':
               Icon = focused ? MessageFilledIcon : MessageIcon
               break
-            case 'MyBookings':
+            case 'Bookings':
               Icon = focused ? MyBookingFilledIcon : MyBookingIcon
               break
             case 'Profile':
@@ -121,8 +121,8 @@ export default function BottomTabs() {
         options={{ title: 'Message' }}
       />
       <Tab.Screen
-        name="MyBookings"
-        component={MyBookingsScreen}
+        name="Bookings"
+        component={MyBookingsStack}
         options={{ title: 'My Bookings' }}
       />
       <Tab.Screen
