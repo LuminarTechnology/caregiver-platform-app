@@ -7,11 +7,13 @@ import ServicesScreen from '../screens/SelectServices'
 import BookCaregiverScreen from '../screens/BookCaregiverChild/BookCaregiverScreen'
 import BookCaregiverScreen2 from '../screens/BookCaregiverChild/BookCaregiverScreen2'
 import BookCaregiverScreen3 from '../screens/BookCaregiverChild/BookCaregiverScreen3'
+import { CaregiverDetails } from '../screens/CaregiverDetails'
 
 export type RootStackParamList = {
   Splash: undefined
   Service: undefined
   Onboarding: undefined
+  Caregiver: undefined
   Main: undefined
   BookCare: undefined
   BookCare2: undefined
@@ -30,6 +32,7 @@ const RootStack = () => {
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Service" component={ServicesScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+      <Stack.Screen name="Caregiver" component={CaregiverDetails} />
       <Stack.Screen name="Main" component={BottomTabs} />
       <Stack.Screen name="BookCare" component={BookCaregiverScreen} />
       <Stack.Screen name="BookCare2" component={BookCaregiverScreen2} />
