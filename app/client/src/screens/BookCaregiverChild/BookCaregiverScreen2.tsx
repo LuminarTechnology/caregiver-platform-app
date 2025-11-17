@@ -35,14 +35,7 @@ const BookCaregiverScreen2 = () => {
   }
 
   const handleNext = (data: any) => {
-    console.log(
-      'Form data:',
-      data,
-      'Children:',
-      children,
-      'Expecting:',
-      isExpecting
-    )
+    navigation.navigate('BookCare3' as never)
   }
 
   return (

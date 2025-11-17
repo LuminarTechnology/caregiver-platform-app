@@ -6,6 +6,7 @@ import BottomTabs from './BottomTabs'
 import ServicesScreen from '../screens/SelectServices'
 import BookCaregiverScreen from '../screens/BookCaregiverChild/BookCaregiverScreen'
 import BookCaregiverScreen2 from '../screens/BookCaregiverChild/BookCaregiverScreen2'
+import BookCaregiverScreen3 from '../screens/BookCaregiverChild/BookCaregiverScreen3'
 
 export type RootStackParamList = {
   Splash: undefined
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   Main: undefined
   BookCare: undefined
   BookCare2: undefined
+  BookCare3: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -31,6 +33,7 @@ const RootStack = () => {
       <Stack.Screen name="Main" component={BottomTabs} />
       <Stack.Screen name="BookCare" component={BookCaregiverScreen} />
       <Stack.Screen name="BookCare2" component={BookCaregiverScreen2} />
+      <Stack.Screen name="BookCare3" component={BookCaregiverScreen3} />
     </Stack.Navigator>
   )
 }
