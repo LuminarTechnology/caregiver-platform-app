@@ -10,12 +10,12 @@ export const createTailwindConfig = (
       extend: {
         colors: {
           primary: '#A41845',
-          secondary: '#FFF7F9',
+          secondary: '#F6F6F6',
           muted: '#C3C4BF',
           foreground: '#FFF7F9',
           background: '#ffffff',
-          backgroundSecondary: '#F6F6F6',
-          defaultBlack: '#292A27'
+          defaultBlack: '#292A27',
+          subBlack: '#4E4E4E'
         }
       }
     },
