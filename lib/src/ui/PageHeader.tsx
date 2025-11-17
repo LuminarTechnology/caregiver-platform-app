@@ -1,15 +1,35 @@
-import ArrowBackIcon from '@lib/icons/ArrowBackIcon'
 import { useNavigation } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { Pressable, Text, View } from 'react-native'
+import React from 'react'
+import { View, Text, Pressable, ViewStyle, TextStyle } from 'react-native'
+import ArrowBackIcon from '@lib/icons/ArrowBackIcon'
 
-type TopBarProps = {
+type HeaderIcon = {
+  icon: React.ReactNode
+  onPress: () => void
+}
+
+type PageHeaderProps = {
   title: string
   back?: boolean
   fallback?: string
+  variant?: 'primary' | 'secondary'
+  titlePosition?: 'left' | 'center' | 'right'
+  titleStyle?: TextStyle
+  rightIcon?: HeaderIcon
+  containerStyle?: ViewStyle
 }
 
-const PageHeader = ({ title, back = true, fallback = 'Main' }: TopBarProps) => {
+const PageHeader = ({
+  title,
+  back = true,
+  fallback = 'Main',
+  variant = 'primary',
+  titlePosition = 'left',
+  titleStyle,
+  rightIcon,
+  containerStyle
+}: PageHeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>()
 
   const handleBack = () => {
@@ -20,14 +40,61 @@ const PageHeader = ({ title, back = true, fallback = 'Main' }: TopBarProps) => {
     }
   }
 
+  const isSecondary = variant === 'secondary'
+
   return (
-    <View className="bg-foreground relative flex-row items-center justify-start px-4 py-4">
+    <View
+      className="bg-foreground"
+      style={[
+        {
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 16,
+          position: 'relative'
+        },
+        containerStyle
+      ]}
+    >
+      {/* Back Button */}
       {back && (
-        <Pressable onPress={handleBack} className="mr-8" style={{ zIndex: 10 }}>
-          <ArrowBackIcon width="16" height="16" fill="#333" />
+        <Pressable
+          onPress={handleBack}
+          style={
+            // secondary = use absolute
+            isSecondary
+              ? { position: 'absolute', left: 16, zIndex: 10 }
+              : { marginRight: 12 } // primary = normal spacing
+          }
+        >
+          <ArrowBackIcon width="18" height="18" fill="#333" />
         </Pressable>
       )}
-      <Text className="text-primary text-lg font-bold">{title}</Text>
+
+      {/* Title */}
+      <Text
+        style={[
+          {
+            flex: 1,
+            fontSize: 18,
+            fontWeight: 'bold',
+            textAlign: isSecondary ? titlePosition : 'left',
+            color: '#A41845'
+          },
+          titleStyle
+        ]}
+      >
+        {title}
+      </Text>
+
+      {/* Right Icon — only for secondary */}
+      {isSecondary && rightIcon && (
+        <Pressable
+          onPress={rightIcon.onPress}
+          style={{ position: 'absolute', right: 16 }}
+        >
+          {rightIcon.icon}
+        </Pressable>
+      )}
     </View>
   )
 }

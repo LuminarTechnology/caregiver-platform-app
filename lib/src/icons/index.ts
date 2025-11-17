@@ -24,6 +24,9 @@ export { default as CrossIcon } from "./CrossIcon"
 export { default as AmbulanceIcon } from "./AmbulanceIcon"
 export { default as ShieldIcon } from "./ShieldIcon"
 export { default as WarningIcon } from "./WarningIcon"
+export { default as SheildCheckIcon } from './SheildCheckIcon'
+export { default as StarFilledIcon } from './StarFilledIcon'
+export { default as ThreeDotIcon } from './ThreeDotIcon'
 export { default as FilterIcon } from './FilterIcon'
 export { default as ArrowDownIcon } from './ArrowDownIcon'
 export { default as EyeIcon } from './EyeIcon'
