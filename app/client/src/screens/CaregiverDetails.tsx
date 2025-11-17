@@ -10,8 +10,8 @@ import {
   StarFilledIcon,
   ThreeDotIcon
 } from '@lib/icons'
-import PageHeader2 from '@lib/ui/PageHeader2'
 import CaregiverActionModal from '../components/caregiverDetails/CaregiverActionModal'
+import PageHeader from '@lib/ui/PageHeader'
 
 export const CaregiverDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -50,8 +50,9 @@ export const CaregiverDetails = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <PageHeader2
+        <PageHeader
           title="Daniela C."
+          variant="secondary"
           titlePosition="center"
           back
           rightIcon={{
