@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from '../screens/Home'
 import SearchScreen from '../screens/Search'
-import MessageScreen from '../screens/Message'
 import ProfileScreen from '../screens/Profile'
 import HomeIcon from '@lib/icons/Home'
 import {
@@ -17,6 +16,7 @@ import {
 } from '@lib/icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { View } from 'react-native'
+import MessageListScreen from '../screens/message/MessageListScreen'
 import MyBookingsStack from './MyBookingsStack'
 
 export type BottomTabsParamList = {
@@ -117,7 +117,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Message"
-        component={MessageScreen}
+        component={MessageListScreen}
         options={{ title: 'Message' }}
       />
       <Tab.Screen

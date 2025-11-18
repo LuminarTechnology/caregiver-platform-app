@@ -26,6 +26,7 @@ const Button = ({
       } ${buttonSecondary && 'bg-secondary'} ${className}`}
       onPress={onPress}
     >
+      {children}
       {leftIcon && <View className="mr-2">{leftIcon}</View>}
 
       <Text
