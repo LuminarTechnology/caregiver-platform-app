@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import RootStack from './navigation/RootStack'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import RootNavigator from './navigation/RootNavigator'
 
 export const App = () => {
   return (
@@ -14,7 +15,7 @@ export const App = () => {
         <StatusBar barStyle="dark-content" />
         <NavigationContainer>
           <SafeAreaProvider>
-            <RootStack />
+            <RootNavigator />
           </SafeAreaProvider>
         </NavigationContainer>
       </GestureHandlerRootView>
