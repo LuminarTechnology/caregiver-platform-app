@@ -8,8 +8,8 @@ export default function ServicesScreen() {
   const navigation = useNavigation()
 
   const handleSelect = () => {
-    // navigation.navigate('Onboarding' as never)
-    navigation.navigate('BookCare' as never)
+    navigation.navigate('Onboarding' as never)
+    // navigation.navigate('ChildCare' as never)
   }
 
   return (

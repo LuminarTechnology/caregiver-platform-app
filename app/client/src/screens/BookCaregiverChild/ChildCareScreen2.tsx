@@ -18,7 +18,7 @@ interface Child {
   birthDate: string
 }
 
-const BookCaregiverScreen2 = () => {
+const ChildCareScreen2 = () => {
   const navigation = useNavigation()
   const [children, setChildren] = useState<Child[]>([
     { id: Date.now(), birthDate: '' }
@@ -27,7 +27,9 @@ const BookCaregiverScreen2 = () => {
   const { control, handleSubmit } = useForm()
 
   const handleAddChild = () => {
-    setChildren((prev) => [...prev, { id: Date.now(), birthDate: '' }])
+    if (children.length < 4) {
+      setChildren((prev) => [...prev, { id: Date.now(), birthDate: '' }])
+    }
   }
 
   const handleRemoveChild = (id: number) => {
@@ -35,12 +37,12 @@ const BookCaregiverScreen2 = () => {
   }
 
   const handleNext = (data: any) => {
-    navigation.navigate('BookCare3' as never)
+    navigation.navigate('ChildCare3' as never)
   }
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <PageHeader title="CareGiver.com" />
+      <PageHeader title="Book Caregiver" back />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -79,17 +81,19 @@ const BookCaregiverScreen2 = () => {
           ))}
 
           {/* Add Another Child */}
-          <TouchableOpacity
-            onPress={handleAddChild}
-            className="mt-1 flex-row items-center"
-          >
-            <View className="h-5 w-5 items-center justify-center rounded-full">
-              <PlusCircleIcon width={20} height={20} stroke="#A41845" />
-            </View>
-            <Text className="text-primary ml-2 font-medium">
-              Add another child
-            </Text>
-          </TouchableOpacity>
+          {children.length < 4 && (
+            <TouchableOpacity
+              onPress={handleAddChild}
+              className="mt-1 flex-row items-center"
+            >
+              <View className="h-5 w-5 items-center justify-center rounded-full">
+                <PlusCircleIcon width={20} height={20} stroke="#A41845" />
+              </View>
+              <Text className="text-primary ml-2 font-medium">
+                Add another child
+              </Text>
+            </TouchableOpacity>
+          )}
 
           {/* Expecting Checkbox */}
           <TouchableOpacity
@@ -126,4 +130,4 @@ const BookCaregiverScreen2 = () => {
   )
 }
 
-export default BookCaregiverScreen2
+export default ChildCareScreen2

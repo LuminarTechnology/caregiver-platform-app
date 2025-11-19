@@ -8,6 +8,7 @@ import DatePickerField from '../../../../../lib/src/ui/DateField'
 import TimeField from '../../../../../lib/src/ui/TimeField'
 import { DownArrowIcon, MailIcon, LocationIcon } from '@lib/icons'
 import { useNavigation } from '@react-navigation/native'
+import DropdownField from '@lib/ui/DropdownField'
 
 type FormValues = {
   date: Date
@@ -18,7 +19,7 @@ type FormValues = {
   instructions: string
 }
 
-const BookCaregiverScreen = () => {
+const ChildCareScreen = () => {
   const navigation = useNavigation()
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
@@ -32,7 +33,7 @@ const BookCaregiverScreen = () => {
   })
 
   const handleNext = (data: FormValues) => {
-    navigation.navigate('BookCare2' as never)
+    navigation.navigate('ChildCare2' as never)
   }
 
   const handleCancel = () => {
@@ -42,7 +43,7 @@ const BookCaregiverScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <PageHeader title="Book Caregiver" />
+      <PageHeader title="Book Caregiver" back />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -79,16 +80,19 @@ const BookCaregiverScreen = () => {
           </View>
 
           {/* Duration */}
-          <InputField
+          <DropdownField
             control={control}
             name="duration"
             label="Duration (hours)"
-            placeholder="4 Hours"
-            rightIcon={
-              <DownArrowIcon width={14} height={14} stroke="#90928B" />
-            }
-            className="mt-5"
-            labelStyle={{ color: '#292A27' }}
+            placeholder="Select duration"
+            options={[
+              { label: '1 Hour', value: 1 },
+              { label: '2 Hours', value: 2 },
+              { label: '3 Hours', value: 3 },
+              { label: '4 Hours', value: 4 }
+            ]}
+            rightIcon={<DownArrowIcon stroke="#90928B" />}
+            className="mt-4"
           />
 
           {/* Location */}
@@ -98,7 +102,7 @@ const BookCaregiverScreen = () => {
             label="Location"
             placeholder="Enter your area or post code"
             rightIcon={<LocationIcon width={18} height={18} stroke="#90928B" />}
-            className="mt-3"
+            className="bg-white"
             labelStyle={{ color: '#292A27' }}
           />
 
@@ -110,7 +114,7 @@ const BookCaregiverScreen = () => {
             placeholder="example@gmail.com"
             keyboardType="email-address"
             rightIcon={<MailIcon width={18} height={18} />}
-            className="mt-3"
+            className="bg-white"
             labelStyle={{ color: '#292A27' }}
           />
 
@@ -120,7 +124,7 @@ const BookCaregiverScreen = () => {
             name="instructions"
             label="Special Instructions"
             placeholder="Write here..."
-            className="mt-3"
+            className="bg-white"
             style={{ height: 130, textAlignVertical: 'top' }}
             labelStyle={{ color: '#292A27' }}
           />
@@ -130,14 +134,14 @@ const BookCaregiverScreen = () => {
         <View className="mt-8 flex-row justify-between">
           <Button
             title="Cancel"
-            onPress={handleCancel}
             className="border-primary mr-3 flex-1"
+            onPress={() => navigation.goBack()}
           />
           <Button
             title="Next"
-            onPress={handleSubmit(handleNext)}
             buttonPrimary
             className="flex-1"
+            onPress={handleSubmit(handleNext)}
           />
         </View>
       </ScrollView>
@@ -145,4 +149,4 @@ const BookCaregiverScreen = () => {
   )
 }
 
-export default BookCaregiverScreen
+export default ChildCareScreen

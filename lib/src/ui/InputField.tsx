@@ -21,6 +21,7 @@ interface InputFieldProps {
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   style?: object
+  fullClassName?: string
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -39,35 +40,38 @@ const InputField: React.FC<InputFieldProps> = ({
   className = '',
   leftIcon,
   rightIcon,
-  style
+  style,
+  fullClassName
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   return (
-    <View className={`mb-2 ${className}`}>
+    <View className={`mb-2 ${fullClassName}`}>
       {label && (
         <Text className="mb-2 text-base font-medium" style={labelStyle}>
           {label}
         </Text>
       )}
+
       <Controller
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
           <View
-            className={`flex-row items-center rounded-2xl border ${
-              error
-                ? 'border-red-500'
-                : isFocused
-                ? 'border-primary'
-                : 'border-gray-300'
-            }`}
+            className={`flex-row items-center rounded-2xl border 
+          ${
+            error
+              ? 'border-red-500'
+              : isFocused
+              ? 'border-primary'
+              : 'border-gray-300'
+          }
+          ${className}  
+        `}
           >
             {leftIcon && <View className="pl-3">{leftIcon}</View>}
 
             <TextInput
-              className={`flex-1 px-4 py-5 text-base ${
-                leftIcon ? 'pl-2' : ''
-              } ${isPassword || rightIcon ? 'pr-2' : ''}`}
+              className="flex-1 px-4 py-5 text-base"
               style={[
                 {
                   flex: 1,
