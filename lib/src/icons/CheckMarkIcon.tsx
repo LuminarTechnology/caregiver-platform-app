@@ -1,12 +1,20 @@
 import * as React from 'react'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-function CheckMarkIcon(props: SvgProps) {
-  return (
-    <Svg width={20} height={20} viewBox="0 0 20 20" fill="none" {...props}>
-      <path d="M20 6L9 17L4 12" fill="#999594" />
-    </Svg>
-  )
-}
-
+const CheckMarkIcon = (props: SvgProps) => (
+  <Svg width={14} height={14} viewBox="0 0 14 14" fill="none" {...props}>
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.04034 4.04543C9.22235 4.20434 9.24109 4.48071 9.08219 4.66273L4.49885 9.91273C4.41577 10.0079 4.29561 10.0625 4.16928 10.0625C4.04295 10.0625 3.92278 10.0079 3.8397 9.91273L2.00637 7.81273C1.84746 7.63071 1.8662 7.35434 2.04822 7.19543C2.23024 7.03652 2.50661 7.05526 2.66552 7.23728L4.16928 8.95977L8.42303 4.08728C8.58194 3.90526 8.85832 3.88652 9.04034 4.04543Z"
+      fill="#F8DDE6"
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.9711 4.09469C12.1461 4.26133 12.1528 4.53825 11.9862 4.71322L6.98605 9.96322C6.89768 10.056 6.77308 10.1054 6.64514 10.0983C6.5172 10.0913 6.39879 10.0285 6.32117 9.92654L6.07131 9.59841C5.92493 9.40618 5.9621 9.13167 6.15434 8.98529C6.31949 8.85954 6.54535 8.86925 6.69854 8.99637L11.3526 4.10976C11.5192 3.9348 11.7962 3.92805 11.9711 4.09469Z"
+      fill="#F8DDE6"
+    />
+  </Svg>
+)
 export default CheckMarkIcon

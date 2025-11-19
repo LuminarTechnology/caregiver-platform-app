@@ -10,6 +10,7 @@ import ChildCareScreen2 from '../screens/BookCaregiverChild/ChildCareScreen2'
 import ChildCareScreen3 from '../screens/BookCaregiverChild/ChildCareScreen3'
 import ChildCareScreen4 from '../screens/BookCaregiverChild/ChildCareScreen4'
 import ChildCareScreen5 from '../screens/BookCaregiverChild/ChildCareScreen5'
+import MessageStack from './MessageStack'
 
 export type RootStackParamList = {
   Splash: undefined
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   ChildCare3: undefined
   ChildCare4: undefined
   ChildCare5: undefined
+  MessageStack: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -43,6 +45,7 @@ const RootStack = () => {
       <Stack.Screen name="ChildCare3" component={ChildCareScreen3} />
       <Stack.Screen name="ChildCare4" component={ChildCareScreen4} />
       <Stack.Screen name="ChildCare5" component={ChildCareScreen5} />
+      <Stack.Screen name="MessageStack" component={MessageStack} />
     </Stack.Navigator>
   )
 }
