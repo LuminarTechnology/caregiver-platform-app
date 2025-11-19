@@ -88,7 +88,7 @@ export default function OnboardingSlider() {
         <Button
           title="Get Started"
           onPress={() => {
-            navigation.navigate('BottomTabs' as never)
+            navigation.navigate('SignIn' as never)
           }}
           buttonPrimary
         />
