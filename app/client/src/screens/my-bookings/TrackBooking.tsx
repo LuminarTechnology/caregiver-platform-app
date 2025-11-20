@@ -1,8 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageHeader from '../../components/common/PageHeader'
-import { Image, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import { ProgressBar } from 'react-native-paper'
+import { Image, Text, View, ScrollView } from 'react-native'
 import {
   ClockIcon,
   LocationIcon,
@@ -116,11 +115,9 @@ const TrackBooking = () => {
             <Text className="mt text-right text-sm">25%</Text>
           </View>
 
-          <ProgressBar
-            progress={0.25}
-            color={'#A41845'}
-            style={{ height: 6, backgroundColor: '#E5E7EB', borderRadius: 6 }}
-          />
+          <View className="h-2 rounded-2xl bg-[#E5E7EB]">
+            <View className="h-2 w-1/4 rounded-2xl bg-[#A41845]" />
+          </View>
 
           {/* Labels */}
           <View className="mt-2 flex-row justify-between">

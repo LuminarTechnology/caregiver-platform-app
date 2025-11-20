@@ -105,12 +105,12 @@ const BookingCard: React.FC<{
             <Text className="font-medium text-white">Track Booking</Text>
           </TouchableOpacity>
         ) : (
-          <View className="w-full flex-row items-center gap-2">
-            <TouchableOpacity className="border-primary flex-1 flex-row items-center justify-center gap-2 rounded-2xl border-[1.5px] bg-white py-3">
+          <View className="w-[220px] flex-row items-center gap-2">
+            <TouchableOpacity className="border-primary flex-1 flex-row items-center justify-center gap-2 rounded-2xl border-[1.5px] bg-white py-2">
               <StarIcon />
               <Text className="text-primary font-medium">Rate</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="bg-primary border-primary flex-1 items-center justify-center rounded-2xl border-[1.5px] py-3">
+            <TouchableOpacity className="bg-primary border-primary flex-1 items-center justify-center rounded-2xl border-[1.5px] py-2">
               <Text className="font-medium text-white">Book Again</Text>
             </TouchableOpacity>
           </View>
