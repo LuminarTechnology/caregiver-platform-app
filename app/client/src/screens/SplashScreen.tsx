@@ -11,7 +11,7 @@ export default function AppSplashScreen() {
       await SplashScreen.preventAutoHideAsync()
       setTimeout(async () => {
         await SplashScreen.hideAsync()
-        navigation.navigate('Service' as never)
+        navigation.navigate('Onboarding' as never)
       }, 2000)
     }
     prepare()
