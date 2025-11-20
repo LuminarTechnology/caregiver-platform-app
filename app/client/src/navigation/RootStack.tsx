@@ -22,7 +22,7 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       id={undefined}
-      initialRouteName="Splash"
+      initialRouteName="Main"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Splash" component={SplashScreen} />
