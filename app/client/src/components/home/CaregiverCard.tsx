@@ -21,14 +21,14 @@ export const CaregiverCard: React.FC<CaregiverCardProps> = ({
   return (
     <TouchableOpacity onPress={onPress} className="mr-4 w-32">
       <View className="mb-2 h-56 w-32 justify-center overflow-hidden rounded-2xl bg-[#FFF7F9]">
-        <View className="mb-2 h-28 w-28 mx-auto items-center justify-center overflow-hidden rounded-2xl bg-white">
+        <View className="mx-auto mb-2 h-28 w-28 items-center justify-center overflow-hidden rounded-2xl bg-white">
           <Image
             source={require('../../../../assets/images/caregiver.png')}
             className="h-full w-full"
             resizeMode="cover"
           />
         </View>
-        <View className='px-2'>
+        <View className="px-2">
           <Text className="mb-1 font-semibold text-[#292A27]">
             {caregiver.name}
           </Text>

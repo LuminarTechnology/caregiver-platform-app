@@ -1,13 +1,7 @@
-import * as React from "react";
-import Svg, { Path, SvgProps } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path, SvgProps } from 'react-native-svg'
 const SVGComponent = (props: SvgProps) => (
-  <Svg
-    width={21}
-    height={22}
-    viewBox="0 0 21 22"
-    fill="none"
-    {...props}
-  >
+  <Svg width={21} height={22} viewBox="0 0 21 22" fill="none" {...props}>
     <Path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -15,5 +9,5 @@ const SVGComponent = (props: SvgProps) => (
       fill="#292A27"
     />
   </Svg>
-);
-export default SVGComponent;
+)
+export default SVGComponent

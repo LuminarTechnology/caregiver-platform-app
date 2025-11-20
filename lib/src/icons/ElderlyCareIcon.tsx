@@ -1,13 +1,7 @@
-import * as React from "react";
-import Svg, { Path, SvgProps } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path, SvgProps } from 'react-native-svg'
 const SVGComponent = (props: SvgProps) => (
-  <Svg
-    width={32}
-    height={32}
-    viewBox="0 0 32 32"
-    fill="none"
-    {...props}
-  >
+  <Svg width={32} height={32} viewBox="0 0 32 32" fill="none" {...props}>
     <Path
       d="M23.335 7.00488V7.00586C23.4108 7.01501 23.4812 7.01369 23.5537 7.00781C23.4574 7.08707 23.3238 7.17935 23.1836 7.25879C23.0453 7.33712 22.9045 7.40117 22.792 7.43359C22.9146 7.30008 23.012 7.16467 23.1035 6.99414C23.1813 7.0013 23.2581 7.00365 23.335 7.00488Z"
       stroke="#4E4E4E"
@@ -495,5 +489,5 @@ const SVGComponent = (props: SvgProps) => (
       fill="#E8774F"
     />
   </Svg>
-);
-export default SVGComponent;
+)
+export default SVGComponent

@@ -1,18 +1,15 @@
-import * as React from "react";
-import Svg, { Path, SvgProps } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path, SvgProps } from 'react-native-svg'
 
 interface CustomSvgProps extends SvgProps {
-  strokeColor?: string;
+  strokeColor?: string
 }
 
-const SVGComponent = ({ strokeColor = "#292A27", ...props }: CustomSvgProps) => (
-  <Svg
-    width={20}
-    height={20}
-    viewBox="0 0 20 20"
-    fill="none"
-    {...props}
-  >
+const SVGComponent = ({
+  strokeColor = '#292A27',
+  ...props
+}: CustomSvgProps) => (
+  <Svg width={20} height={20} viewBox="0 0 20 20" fill="none" {...props}>
     <Path
       d="M8.33333 8.33301H5"
       stroke={strokeColor}
@@ -63,6 +60,6 @@ const SVGComponent = ({ strokeColor = "#292A27", ...props }: CustomSvgProps) => 
       strokeLinejoin="round"
     />
   </Svg>
-);
+)
 
-export default SVGComponent;
+export default SVGComponent

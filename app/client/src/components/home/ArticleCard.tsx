@@ -27,9 +27,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           />
         </View>
         <View className="px-2">
-          <Text className="mb-1 text-sm text-[#292A27]">
-            {article.title}
-          </Text>
+          <Text className="mb-1 text-sm text-[#292A27]">{article.title}</Text>
         </View>
       </View>
     </TouchableOpacity>

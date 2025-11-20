@@ -1,5 +1,5 @@
-import * as React from "react";
-import Svg, { Path, SvgProps } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path, SvgProps } from 'react-native-svg'
 const ForwardCircleIcon = (props: SvgProps) => (
   <Svg viewBox="0 0 512 512" width={24} height={24} {...props}>
     <Path
@@ -18,5 +18,5 @@ const ForwardCircleIcon = (props: SvgProps) => (
       d="M216 352l96-96-96-96"
     />
   </Svg>
-);
-export default ForwardCircleIcon;
+)
+export default ForwardCircleIcon

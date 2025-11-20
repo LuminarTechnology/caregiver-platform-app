@@ -33,9 +33,9 @@ export const Banner: React.FC<BannerProps> = ({ onGetStarted }) => {
             </Text>
             <TouchableOpacity
               onPress={onGetStarted}
-              className="rounded-2xl bg-[#A41845] w-full px-6 py-3"
+              className="w-full rounded-2xl bg-[#A41845] px-6 py-3"
             >
-              <Text className="text-lg text-white text-center">
+              <Text className="text-center text-lg text-white">
                 Get Started
               </Text>
             </TouchableOpacity>

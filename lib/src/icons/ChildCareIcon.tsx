@@ -1,13 +1,13 @@
-import * as React from "react";
-import Svg, { Path, Defs, LinearGradient, Stop, SvgProps } from "react-native-svg";
+import * as React from 'react'
+import Svg, {
+  Path,
+  Defs,
+  LinearGradient,
+  Stop,
+  SvgProps
+} from 'react-native-svg'
 const SVGComponent = (props: SvgProps) => (
-  <Svg
-    width={32}
-    height={32}
-    viewBox="0 0 32 32"
-    fill="none"
-    {...props}
-  >
+  <Svg width={32} height={32} viewBox="0 0 32 32" fill="none" {...props}>
     <Path
       d="M21.7911 11.271C21.7826 11.2522 21.7747 11.2338 21.7676 11.2144C21.7034 11.0401 21.6902 10.8562 21.7747 10.6854C21.8651 10.5028 22.0232 10.4207 22.2078 10.3555C22.1765 10.613 22.174 10.8068 22.3379 11.0248C22.2073 11.1307 22.0294 11.2029 21.8845 11.2919C21.6989 11.406 21.5252 11.5451 21.3343 11.6492C21.3128 11.6193 21.2914 11.5892 21.2718 11.558C21.1292 11.3315 21.1515 11.1161 21.2118 10.8711C21.3771 11.074 21.5487 11.1786 21.7911 11.271Z"
       fill="#A41845"
@@ -564,5 +564,5 @@ const SVGComponent = (props: SvgProps) => (
       </LinearGradient>
     </Defs>
   </Svg>
-);
-export default SVGComponent;
+)
+export default SVGComponent
