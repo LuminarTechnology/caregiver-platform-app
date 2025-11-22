@@ -32,7 +32,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ user }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        (navigation as any).navigate('MessageStack', {
+        (navigation as any).navigate('MessageTab', {
           screen: 'Chat',
           params: { user }
         })

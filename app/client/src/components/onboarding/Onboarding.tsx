@@ -1,4 +1,5 @@
 import Button from '@lib/ui/Button'
+import { useNavigation } from '@react-navigation/native'
 import { View, Text, Dimensions, ImageBackground } from 'react-native'
 import Animated, {
   useAnimatedStyle,
@@ -33,6 +34,7 @@ const slides = [
 ]
 
 export default function OnboardingSlider() {
+  const navigation = useNavigation()
   const progress = useSharedValue(0)
 
   return (
@@ -86,7 +88,7 @@ export default function OnboardingSlider() {
         <Button
           title="Get Started"
           onPress={() => {
-            console.log('Get Started Pressed')
+            navigation.navigate('SignIn' as never)
           }}
           buttonPrimary
         />

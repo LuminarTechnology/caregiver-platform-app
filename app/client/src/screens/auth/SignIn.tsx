@@ -157,7 +157,7 @@ const SignIn = () => {
             </Text>
             <TouchableOpacity
               onPress={() =>
-                (navigation as any).navigate('AuthStack', { screen: 'SignUp' })
+                (navigation as any).navigate('SignUp', { screen: 'SignUp' })
               }
             >
               <Text className="text-primary text-base font-semibold">
