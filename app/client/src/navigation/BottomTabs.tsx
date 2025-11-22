@@ -90,7 +90,6 @@ export default function BottomTabs() {
             case 'MessageTab':
               Icon = focused ? MessageFilledIcon : MessageIcon
               break
-            case 'Bookings':
             case 'BookingsTab':
               Icon = focused ? MyBookingFilledIcon : MyBookingIcon
               break
@@ -141,8 +140,8 @@ export default function BottomTabs() {
         options={{ title: 'Message' }}
       />
       <Tab.Screen
-        name="Bookings"
-        component={MyBookingsStack}
+        name="BookingsTab"
+        component={BookingsStack}
         options={{ title: 'My Bookings' }}
       />
       <Tab.Screen
