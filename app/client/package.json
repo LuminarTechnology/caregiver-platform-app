@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/client"
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/client",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo/metro-config": "*",
@@ -14,10 +17,13 @@
     "expo-system-ui": "*",
     "metro-config": "*",
     "metro-resolver": "*",
-    "react": "*",
-    "react-native": "*",
+    "react": "19.0.0",
+    "react-native": "0.79.6",
     "react-native-svg": "*",
     "react-native-svg-transformer": "*",
     "react-native-web": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
   }
 }
