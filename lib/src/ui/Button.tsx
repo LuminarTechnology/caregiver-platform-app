@@ -7,6 +7,7 @@ type ButtonProps = {
   children?: React.ReactNode
   buttonPrimary?: boolean
   buttonSecondary?: boolean
+  leftIcon?: React.ReactNode
 }
 
 const Button = ({
@@ -15,16 +16,19 @@ const Button = ({
   onPress,
   children,
   buttonPrimary,
-  buttonSecondary
+  buttonSecondary,
+  leftIcon
 }: ButtonProps) => {
   return (
     <Pressable
-      className={`border-primary flex h-[56px] flex-row items-center justify-center gap-2 rounded-2xl border-[1.5px] ${
+      className={`border-primary h-[56px] flex-row items-center justify-center rounded-2xl border-[1.5px] ${
         buttonPrimary && 'bg-primary'
       } ${buttonSecondary && 'bg-secondary'} ${className}`}
       onPress={onPress}
     >
       {children}
+      {leftIcon && <View className="mr-2">{leftIcon}</View>}
+
       <Text
         className={`text-lg font-medium ${
           buttonPrimary ? 'text-white' : 'text-primary'

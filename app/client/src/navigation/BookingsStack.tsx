@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import MyBookingsScreen from '../screens/MyBookings'
+import MyBookingsScreen from '../screens/my-bookings/MyBookingsScreen'
+import TrackBooking from '../screens/my-bookings/TrackBooking'
 import ChildCareScreen from '../screens/BookCaregiverChild/ChildCareScreen'
 import ChildCareScreen2 from '../screens/BookCaregiverChild/ChildCareScreen2'
 import ChildCareScreen3 from '../screens/BookCaregiverChild/ChildCareScreen3'
@@ -14,6 +15,7 @@ export type BookingsStackParamList = {
   ChildCare3: undefined
   ChildCare4: undefined
   ChildCare5: undefined
+  TrackBooking: undefined
   // Add booking detail screens here if needed
 }
 
@@ -28,6 +30,7 @@ export default function BookingsStack() {
       <Stack.Screen name="ChildCare3" component={ChildCareScreen3} />
       <Stack.Screen name="ChildCare4" component={ChildCareScreen4} />
       <Stack.Screen name="ChildCare5" component={ChildCareScreen5} />
+      <Stack.Screen name="TrackBooking" component={TrackBooking} />
     </Stack.Navigator>
   )
 }
