@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import MyBookingsScreen from '../screens/MyBookings'
+import MyBookingsScreen from '../screens/my-bookings/MyBookingsScreen'
 
 export type BookingsStackParamList = {
   BookingsMain: undefined
