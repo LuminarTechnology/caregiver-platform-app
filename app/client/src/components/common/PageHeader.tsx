@@ -7,9 +7,15 @@ type TopBarProps = {
   title: string
   back?: boolean
   fallback?: string
+  className?: string
 }
 
-const PageHeader = ({ title, back = true, fallback = 'Main' }: TopBarProps) => {
+const PageHeader = ({
+  title,
+  back = true,
+  fallback = 'Main',
+  className = ''
+}: TopBarProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>()
 
   const handleBack = () => {
@@ -21,13 +27,15 @@ const PageHeader = ({ title, back = true, fallback = 'Main' }: TopBarProps) => {
   }
 
   return (
-    <View className="bg-foreground relative flex-row items-center justify-start px-4 py-4">
+    <View
+      className={`${className} relative flex-row items-center justify-start px-4 py-4`}
+    >
       {back && (
-        <Pressable onPress={handleBack} className="mr-8" style={{ zIndex: 10 }}>
+        <Pressable onPress={handleBack} className="mr-2" style={{ zIndex: 10 }}>
           <ArrowBackIcon width="16" height="16" fill="#333" />
         </Pressable>
       )}
-      <Text className="text-primary text-lg font-bold">{title}</Text>
+      <Text className={`${className} font-medium`}>{title}</Text>
     </View>
   )
 }

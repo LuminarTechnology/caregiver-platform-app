@@ -1,10 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import HomeScreen from '../screens/Home'
-import SearchScreen from '../screens/Search'
-import MessageScreen from '../screens/Message'
-import MyBookingsScreen from '../screens/MyBookings'
-import ProfileScreen from '../screens/Profile'
-import HomeIcon from '@lib/icons/Home'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { View } from 'react-native'
 import {
   HomeFilledIcon,
   MessageFilledIcon,
@@ -16,21 +12,44 @@ import {
   SearchFilledIcon,
   SearchIcon
 } from '@lib/icons'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { View } from 'react-native'
+import HomeIcon from '@lib/icons/Home'
+import HomeStack from './HomeStack'
+import SearchStack from './SearchStack'
+import MessageStack from './MessageStack'
+import BookingsStack from './BookingsStack'
+import ProfileStack from './ProfileStack'
+import {
+  useRoute,
+  getFocusedRouteNameFromRoute
+} from '@react-navigation/native'
 
 export type BottomTabsParamList = {
-  Home: undefined
-  Search: undefined
-  Message: undefined
-  MyBookings: undefined
-  Profile: undefined
+  HomeTab: undefined
+  SearchTab: undefined
+  MessageTab: undefined
+  BookingsTab: undefined
+  ProfileTab: undefined
 }
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>()
 
+// Helper to determine if bottom tab bar should be visible
+const getTabBarVisibility = (route: any) => {
+  const routeName = getFocusedRouteNameFromRoute(route)
+
+  // Hide tab bar on these screens
+  const hiddenScreens = ['Chat', 'Caregiver']
+
+  if (hiddenScreens.includes(routeName)) {
+    return 'none'
+  }
+
+  return 'flex'
+}
+
 export default function BottomTabs() {
   const insets = useSafeAreaInsets()
+
   return (
     <Tab.Navigator
       id={undefined}
@@ -40,6 +59,7 @@ export default function BottomTabs() {
         tabBarActiveTintColor: '#BE185D',
         tabBarInactiveTintColor: '#9CA3AF',
         tabBarStyle: {
+          display: getTabBarVisibility(route),
           backgroundColor: '#FFFFFF',
           paddingTop: 0,
           height: 60 + insets.bottom,
@@ -61,19 +81,19 @@ export default function BottomTabs() {
           let Icon
 
           switch (route.name) {
-            case 'Home':
+            case 'HomeTab':
               Icon = focused ? HomeFilledIcon : HomeIcon
               break
-            case 'Search':
+            case 'SearchTab':
               Icon = focused ? SearchFilledIcon : SearchIcon
               break
-            case 'Message':
+            case 'MessageTab':
               Icon = focused ? MessageFilledIcon : MessageIcon
               break
-            case 'MyBookings':
+            case 'BookingsTab':
               Icon = focused ? MyBookingFilledIcon : MyBookingIcon
               break
-            case 'Profile':
+            case 'ProfileTab':
               Icon = focused ? ProfileFilledIcon : ProfileIcon
               break
             default:
@@ -89,7 +109,6 @@ export default function BottomTabs() {
                 height: '100%'
               }}
             >
-              {/* Top border for active tab */}
               <View
                 style={{
                   position: 'absolute',
@@ -106,28 +125,28 @@ export default function BottomTabs() {
       })}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeTab"
+        component={HomeStack}
         options={{ title: 'Home' }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="SearchTab"
+        component={SearchStack}
         options={{ title: 'Search' }}
       />
       <Tab.Screen
-        name="Message"
-        component={MessageScreen}
+        name="MessageTab"
+        component={MessageStack}
         options={{ title: 'Message' }}
       />
       <Tab.Screen
-        name="MyBookings"
-        component={MyBookingsScreen}
+        name="BookingsTab"
+        component={BookingsStack}
         options={{ title: 'My Bookings' }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="ProfileTab"
+        component={ProfileStack}
         options={{ title: 'Profile' }}
       />
     </Tab.Navigator>
