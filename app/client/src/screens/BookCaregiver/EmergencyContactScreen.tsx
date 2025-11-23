@@ -18,7 +18,7 @@ interface Contact {
   id: number
 }
 
-const ChildCareScreen3 = () => {
+const EmergencyContactScreen = () => {
   const navigation = useNavigation()
   const { control, handleSubmit } = useForm()
   const [contacts, setContacts] = useState<Contact[]>([
@@ -37,7 +37,7 @@ const ChildCareScreen3 = () => {
   }
 
   const handleNext = (data: any) => {
-    navigation.navigate('ChildCare4' as never)
+    navigation.navigate('PaymentMethod' as never)
   }
 
   return (
@@ -152,4 +152,4 @@ const ChildCareScreen3 = () => {
   )
 }
 
-export default ChildCareScreen3
+export default EmergencyContactScreen

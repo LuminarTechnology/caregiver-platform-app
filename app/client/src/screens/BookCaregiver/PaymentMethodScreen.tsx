@@ -62,12 +62,12 @@ const paymentOptions: PaymentOption[] = [
   }
 ]
 
-const ChildCareScreen4 = () => {
+const PaymentMethodScreen = () => {
   const navigation = useNavigation()
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('bkash')
   const { control, handleSubmit } = useForm()
   const handleNext = (data: any) => {
-    navigation.navigate('ChildCare5' as never)
+    navigation.navigate('CareReview' as never)
   }
 
   return (
@@ -158,4 +158,4 @@ const ChildCareScreen4 = () => {
   )
 }
 
-export default ChildCareScreen4
+export default PaymentMethodScreen

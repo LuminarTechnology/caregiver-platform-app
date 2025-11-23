@@ -19,7 +19,7 @@ type FormValues = {
   instructions: string
 }
 
-const ChildCareScreen = () => {
+const ServiceInfoScreen = () => {
   const navigation = useNavigation()
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
@@ -33,12 +33,7 @@ const ChildCareScreen = () => {
   })
 
   const handleNext = (data: FormValues) => {
-    navigation.navigate('ChildCare2' as never)
-  }
-
-  const handleCancel = () => {
-    reset()
-    console.log('Booking cancelled')
+    navigation.navigate('CareDetails' as never)
   }
 
   return (
@@ -149,4 +144,4 @@ const ChildCareScreen = () => {
   )
 }
 
-export default ChildCareScreen
+export default ServiceInfoScreen

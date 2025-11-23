@@ -5,7 +5,7 @@ import PageHeader from '@lib/ui/PageHeader'
 import Button from '@lib/ui/Button'
 import PaymentSuccessModal from './PaymentSuccessModal'
 
-const ChildCareScreen5 = () => {
+const CareReviewScreen = () => {
   const navigation = useNavigation()
   const [showSuccessModal, setShowSuccessModal] = useState(false)
 
@@ -95,4 +95,4 @@ const ChildCareScreen5 = () => {
   )
 }
 
-export default ChildCareScreen5
+export default CareReviewScreen

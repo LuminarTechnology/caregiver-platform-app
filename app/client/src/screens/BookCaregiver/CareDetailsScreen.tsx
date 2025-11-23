@@ -18,7 +18,7 @@ interface Child {
   birthDate: string
 }
 
-const ChildCareScreen2 = () => {
+const CareDetailsScreen = () => {
   const navigation = useNavigation()
   const [children, setChildren] = useState<Child[]>([
     { id: Date.now(), birthDate: '' }
@@ -37,7 +37,7 @@ const ChildCareScreen2 = () => {
   }
 
   const handleNext = (data: any) => {
-    navigation.navigate('ChildCare3' as never)
+    navigation.navigate('EmergencyContact' as never)
   }
 
   return (
@@ -130,4 +130,4 @@ const ChildCareScreen2 = () => {
   )
 }
 
-export default ChildCareScreen2
+export default CareDetailsScreen
