@@ -1,8 +1,17 @@
 import * as React from 'react'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-const SVGComponent = (props: SvgProps) => (
-  <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...props}>
+interface CustomSvgProps extends SvgProps {
+  strokeColor?: string
+  size?: number
+}
+
+const SVGComponent = ({
+  strokeColor = '#90928B',
+  size = 24,
+  ...props
+}: CustomSvgProps) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" {...props}>
     <Path
       d="M17.6569 16.6569C16.7202 17.5935 14.7616 19.5521 13.4138 20.8999C12.6327 21.681 11.3677 21.6814 10.5866 20.9003C9.26234 19.576 7.34159 17.6553 6.34315 16.6569C3.21895 13.5327 3.21895 8.46734 6.34315 5.34315C9.46734 2.21895 14.5327 2.21895 17.6569 5.34315C20.781 8.46734 20.781 13.5327 17.6569 16.6569Z"
       stroke={props.stroke ?? 'currentColor'}
@@ -19,4 +28,5 @@ const SVGComponent = (props: SvgProps) => (
     />
   </Svg>
 )
+
 export default SVGComponent
