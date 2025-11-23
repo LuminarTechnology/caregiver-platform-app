@@ -10,7 +10,7 @@ export const Banner: React.FC<BannerProps> = ({ onGetStarted }) => {
   return (
     <View className="mb-6 px-4">
       <ImageBackground
-        source={require('../../../../assets/images/home_banner.png')}
+        source={require('../../../assets/images/home_banner.png')}
         resizeMode="cover"
         className="overflow-hidden rounded-2xl"
       >

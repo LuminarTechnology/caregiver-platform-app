@@ -23,7 +23,7 @@ export const CaregiverCard: React.FC<CaregiverCardProps> = ({
       <View className="mb-2 h-56 w-32 justify-center overflow-hidden rounded-2xl bg-[#FFF7F9]">
         <View className="mx-auto mb-2 h-28 w-28 items-center justify-center overflow-hidden rounded-2xl bg-white">
           <Image
-            source={require('../../../../assets/images/caregiver.png')}
+            source={require('../../../assets/images/caregiver.png')}
             className="h-full w-full"
             resizeMode="cover"
           />

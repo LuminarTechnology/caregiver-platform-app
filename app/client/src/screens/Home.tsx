@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { View, ScrollView } from 'react-native'
-import { Header } from '../components/screens/home/Header'
-import { CareSelection } from '../components/screens/home/CareSelection'
-import { Banner } from '../components/screens/home/Banner'
-import { CaregiversSection } from '../components/screens/home/CaregiversSection'
-import { ArticlesSection } from '../components/screens/home/ArticlesSection'
-import { Caregiver } from '../components/screens/home/CaregiverCard'
-import { Article } from '../components/screens/home/ArticleCard'
+import { Header } from '../components/home/Header'
+import { CareSelection } from '../components/home/CareSelection'
+import { Banner } from '../components/home/Banner'
+import { CaregiversSection } from '../components/home/CaregiversSection'
+import { ArticlesSection } from '../components/home/ArticlesSection'
+import { Caregiver } from '../components/home/CaregiverCard'
+import { Article } from '../components/home/ArticleCard'
 import { caregivers, articles } from '../constants/home'
+import { useNavigation } from '@react-navigation/native'
 
 const HomeScreen: React.FC = () => {
+  const navigation = useNavigation()
   const [selectedCare, setSelectedCare] = useState<'child' | 'elderly'>('child')
 
   const handleGetStarted = () => {
@@ -19,7 +21,7 @@ const HomeScreen: React.FC = () => {
 
   const handleCaregiverPress = (caregiver: Caregiver) => {
     console.log('Caregiver pressed:', caregiver)
-    // Navigate to caregiver details screen
+    navigation.navigate('Caregiver' as never)
   }
 
   const handleArticlePress = (article: Article) => {

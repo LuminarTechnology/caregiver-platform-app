@@ -1,5 +1,5 @@
-import { Caregiver } from '../components/screens/home/CaregiverCard'
-import { Article } from '../components/screens/home/ArticleCard'
+import { Caregiver } from '../components/home/CaregiverCard'
+import { Article } from '../components/home/ArticleCard'
 
 export const caregivers: Caregiver[] = [
   {
