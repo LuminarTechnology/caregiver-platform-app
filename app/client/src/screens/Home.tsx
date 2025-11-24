@@ -12,11 +12,15 @@ import { useNavigation } from '@react-navigation/native'
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation()
+
   const [selectedCare, setSelectedCare] = useState<'child' | 'elderly'>('child')
 
   const handleGetStarted = () => {
-    console.log('Get Started pressed')
-    // Navigate to booking screen
+    if (selectedCare === 'child') {
+      navigation.navigate('BookingsTab', { screen: 'ChildCareDetails' })
+    } else if (selectedCare === 'elderly') {
+      navigation.navigate('BookingsTab', { screen: 'ElderCareDetails' })
+    }
   }
 
   const handleCaregiverPress = (caregiver: Caregiver) => {

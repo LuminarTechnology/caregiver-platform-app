@@ -71,7 +71,7 @@ const PaymentMethodScreen = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <PageHeader title="Book Caregiver" back />
       <ScrollView contentContainerStyle={{ padding: 20 }}>
         {/* Title */}
@@ -154,7 +154,7 @@ const PaymentMethodScreen = () => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

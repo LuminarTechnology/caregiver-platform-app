@@ -18,7 +18,7 @@ interface Child {
   birthDate: string
 }
 
-const CareDetailsScreen = () => {
+const ChildCareDetailsScreen = () => {
   const navigation = useNavigation()
   const [children, setChildren] = useState<Child[]>([
     { id: Date.now(), birthDate: '' }
@@ -37,11 +37,11 @@ const CareDetailsScreen = () => {
   }
 
   const handleNext = (data: any) => {
-    navigation.navigate('EmergencyContact' as never)
+    navigation.navigate('ServiceInfo' as never)
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <PageHeader title="Book Caregiver" back />
 
       <ScrollView
@@ -114,7 +114,7 @@ const CareDetailsScreen = () => {
         {/* Buttons */}
         <View className="mt-8 flex-row justify-between">
           <Button
-            title="Back"
+            title="Cancel"
             className="border-primary mr-3 flex-1"
             onPress={() => navigation.goBack()}
           />
@@ -126,8 +126,8 @@ const CareDetailsScreen = () => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
-export default CareDetailsScreen
+export default ChildCareDetailsScreen

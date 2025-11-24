@@ -23,12 +23,12 @@ const ElderCareDetailsScreen = () => {
     }
   })
 
-  const handleNext = (data: FormValues) => {
-    navigation.navigate('CareSchedule' as never)
+  const handleNext = (data: any) => {
+    navigation.navigate('ServiceInfo' as never)
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <PageHeader title="Book Caregiver" back />
 
       <ScrollView
@@ -109,7 +109,7 @@ const ElderCareDetailsScreen = () => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

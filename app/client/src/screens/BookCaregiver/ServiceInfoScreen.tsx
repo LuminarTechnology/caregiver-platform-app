@@ -33,11 +33,11 @@ const ServiceInfoScreen = () => {
   })
 
   const handleNext = (data: FormValues) => {
-    navigation.navigate('CareDetails' as never)
+    navigation.navigate('EmergencyContact' as never)
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <PageHeader title="Book Caregiver" back />
 
       <ScrollView
@@ -128,7 +128,7 @@ const ServiceInfoScreen = () => {
         {/* Buttons */}
         <View className="mt-8 flex-row justify-between">
           <Button
-            title="Cancel"
+            title="Back"
             className="border-primary mr-3 flex-1"
             onPress={() => navigation.goBack()}
           />
@@ -140,7 +140,7 @@ const ServiceInfoScreen = () => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

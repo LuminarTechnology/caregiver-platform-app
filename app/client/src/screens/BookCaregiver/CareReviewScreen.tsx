@@ -14,7 +14,7 @@ const CareReviewScreen = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <PageHeader title="Book Caregiver" back />
 
       <ScrollView contentContainerStyle={{ padding: 20 }}>
@@ -91,7 +91,7 @@ const CareReviewScreen = () => {
       {showSuccessModal && (
         <PaymentSuccessModal onClose={() => setShowSuccessModal(false)} />
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 
