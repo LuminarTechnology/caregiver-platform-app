@@ -69,6 +69,24 @@ const MESSAGE_DATA: UserMessage[] = [
     unreadCount: 0,
     lastMessage: 'Thanks, talk soon!',
     avatarUrl: 'https://i.pravatar.cc/150?img=3'
+  },
+  {
+    id: '8',
+    name: 'Cameron Williamson',
+    jobTitle: 'Electrician',
+    date: '9/4/2024',
+    unreadCount: 0,
+    lastMessage: 'Thanks, talk soon!',
+    avatarUrl: 'https://i.pravatar.cc/150?img=3'
+  },
+  {
+    id: '9',
+    name: 'Cameron Williamson',
+    jobTitle: 'Electrician',
+    date: '9/4/2024',
+    unreadCount: 0,
+    lastMessage: 'Thanks, talk soon!',
+    avatarUrl: 'https://i.pravatar.cc/150?img=3'
   }
 ]
 
@@ -78,7 +96,7 @@ const MessageListScreen: React.FC = () => {
   )
 
   return (
-    <SafeAreaView edges={['top']} className="mt-3 flex-1 bg-cyan-500">
+    <View className="flex-1">
       <Header />
       <SearchBar onFilterPress={() => console.log('Filter Pressed')} />
 
@@ -88,7 +106,7 @@ const MessageListScreen: React.FC = () => {
         keyExtractor={(item) => item.id}
         className="flex-1 "
       />
-    </SafeAreaView>
+    </View>
   )
 }
 
