@@ -1,27 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView
+} from 'react-native'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import AuthLayout from '../../components/common/layouts/AuthLayout'
 import { authService } from '@lib/api'
+import { tokenManager } from '@lib/config/axios'
+import { useAuth } from '../../navigation/AuthContext'
 
-type OTPVerificationRouteProp = RouteProp<{
-  OTPVerification: {
-    email: string
-    phone: string
-  }
-}, 'OTPVerification'>
+type OTPVerificationRouteProp = RouteProp<
+  {
+    OTPVerification: {
+      email: string
+      phone: string
+    }
+  },
+  'OTPVerification'
+>
 
 const OTPVerification = () => {
   const navigation = useNavigation()
+  const { setAuthenticated } = useAuth()
+  const { mutate: verifyPhone } = authService.verifyOtp()
+  const { mutate: resendOtpMutation, isPending: isResending } =
+    authService.resendOtp()
   const route = useRoute<OTPVerificationRouteProp>()
-  const { email, phone } = route.params
-  
+  const { phone } = route.params
+
   const [otp, setOtp] = useState(['', '', '', '', '', ''])
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [timer, setTimer] = useState(60)
+  const [timer, setTimer] = useState(5)
   const [canResend, setCanResend] = useState(false)
-  
+
   const inputRefs = useRef<(TextInput | null)[]>([])
 
   // Timer countdown
@@ -58,52 +73,53 @@ const OTPVerification = () => {
 
   const handleVerify = async () => {
     const otpCode = otp.join('')
-    
-    if (otpCode.length !== 6) {
-      setError('Please enter complete OTP code')
-      return
-    }
 
-    setIsSubmitting(true)
     setError('')
+    setIsSubmitting(true)
 
-    try {
-      // Replace with your actual API call
-      // await authService.verifyOtp({ email, otp: otpCode })
-      
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      
-      console.log('OTP Verified:', otpCode)
-      
-      // Navigate to success screen or home
-      // navigation.navigate('Home')
-      
-    } catch (err: any) {
-      setError(err.message || 'Invalid OTP code. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
+    verifyPhone(
+      { phone, otp: otpCode },
+      {
+        onSuccess: async () => {
+          // Update verification status
+          const userData = await tokenManager.getUserData()
+          if (userData) {
+            await tokenManager.setUserData({
+              ...userData,
+              needsVerification: false
+            })
+          }
+          setAuthenticated(true)
+        },
+        onError: (err) => {
+          setError(err.message || 'Invalid OTP. Try again.')
+        },
+        onSettled: () => {
+          setIsSubmitting(false)
+        }
+      }
+    )
   }
 
   const handleResend = async () => {
     if (!canResend) return
 
     setCanResend(false)
-    setTimer(60)
+    setTimer(5)
     setOtp(['', '', '', '', '', ''])
     setError('')
 
-    try {
-      // Replace with your actual API call
-      // await authService.resendOtp({ email })
-      
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      console.log('OTP Resent to:', email)
-    } catch (err: any) {
-      setError(err.message || 'Failed to resend OTP')
-    }
+    resendOtpMutation(
+      { phone },
+      {
+        onSuccess: (res) => {
+          console.warn('OTP resent:', res.message)
+        },
+        onError: (err) => {
+          setError(err.message || 'Failed to resend OTP')
+        }
+      }
+    )
   }
 
   const isOtpComplete = otp.every((digit) => digit !== '')
@@ -118,9 +134,7 @@ const OTPVerification = () => {
             </Text>
             <Text className="text-base leading-5 text-gray-600">
               We've sent a 6-digit verification code to{'\n'}
-              <Text className="font-semibold text-gray-800">
-                {email || phone}
-              </Text>
+              <Text className="font-semibold text-gray-800">{phone}</Text>
             </Text>
           </View>
 
@@ -128,7 +142,7 @@ const OTPVerification = () => {
             <Text className="mb-4 text-center text-base text-gray-700">
               Enter OTP Code
             </Text>
-            
+
             <View className="mb-4 flex-row justify-between">
               {otp.map((digit, index) => (
                 <TextInput
@@ -170,9 +184,7 @@ const OTPVerification = () => {
             {!canResend ? (
               <Text className="text-base text-gray-600">
                 Resend code in{' '}
-                <Text className="font-semibold text-gray-800">
-                  {timer}s
-                </Text>
+                <Text className="font-semibold text-gray-800">{timer}s</Text>
               </Text>
             ) : (
               <TouchableOpacity onPress={handleResend}>
@@ -187,9 +199,7 @@ const OTPVerification = () => {
             <Text className="mr-1 text-base text-gray-700">
               Wrong email or phone?
             </Text>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-            >
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text className="text-primary text-base font-semibold">
                 Go Back
               </Text>

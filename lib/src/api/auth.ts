@@ -12,25 +12,29 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResponse {
-  id: string
-  email: string
-  fullName: string
-  phone: string
-  status: 'pending' | 'active' | 'suspended'
-  message: string
+  data: {
+    id: string
+    email: string
+    fullName: string
+    phone: string
+    status: 'pending' | 'active' | 'suspended'
+    message: string
+  }
 }
 
-export interface VerifyEmailRequest {
-  email: string
+export interface VerifyPhoneRequest {
+  phone: string
   otp: string
 }
 
-export interface VerifyEmailResponse {
-  message: string
+export interface VerifyPhoneResponse {
+  data: {
+    message: string
+  }
 }
 
 export interface ResendOtpRequest {
-  email: string
+  phone: string
 }
 
 export interface LoginRequest {
@@ -39,12 +43,14 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  userId: string
-  email: string
-  roles: string[]
-  message: string
-  accessToken: string
-  refreshToken: string // Backend will provide this
+  data: {
+    userId: string
+    email: string
+    roles: string[]
+    message: string
+    accessToken: string
+    refreshToken: string // Backend will provide this
+  }
 }
 
 export interface UserProfile {
@@ -74,39 +80,22 @@ class AuthService {
   register = () => {
     return useApiMutation<RegisterRequest, RegisterResponse>({
       url: '/auth/register',
-      method: 'POST',
-      onSuccess: async (data) => {
-        // Store email temporarily for OTP verification
-        await tokenManager.setUserData({ 
-          email: data.email, 
-          needsVerification: true 
-        })
-      }
+      method: 'POST'
     })
   }
 
-  // Email verification - returns mutation hook
-  verifyEmail = () => {
-    return useApiMutation<VerifyEmailRequest, VerifyEmailResponse>({
-      url: '/auth/verify-email',
-      method: 'POST',
-      onSuccess: async () => {
-        // Update verification status
-        const userData = await tokenManager.getUserData()
-        if (userData) {
-          await tokenManager.setUserData({ 
-            ...userData, 
-            needsVerification: false 
-          })
-        }
-      }
+  // Verify via otp
+  verifyOtp = () => {
+    return useApiMutation<VerifyPhoneRequest, VerifyPhoneResponse>({
+      url: '/auth/verify-otp',
+      method: 'POST'
     })
   }
 
   // Resend OTP - returns mutation hook
   resendOtp = () => {
     return useApiMutation<ResendOtpRequest, { message: string }>({
-      url: '/auth/resend-verification-otp',
+      url: '/auth/resend-otp',
       method: 'POST'
     })
   }
@@ -117,19 +106,9 @@ class AuthService {
       url: '/auth/login',
       method: 'POST',
       onSuccess: async (data) => {
-        // Store tokens
-        await tokenManager.setTokens(data.accessToken, data.refreshToken)
-        
-        // Store user data
-        await tokenManager.setUserData({
-          userId: data.userId,
-          email: data.email,
-          roles: data.roles
-        })
-        
         // Invalidate profile query to refetch with new auth
-        queryClient.invalidateQueries({ 
-          queryKey: queryKey.detail('auth', 'profile') 
+        queryClient.invalidateQueries({
+          queryKey: queryKey.detail('auth', 'profile')
         })
       }
     })
@@ -161,7 +140,7 @@ class AuthService {
       onSuccess: async () => {
         // Clear tokens and user data
         await tokenManager.clearTokens()
-        
+
         // Clear all cached queries
         queryClient.clear()
       }
@@ -176,7 +155,7 @@ class AuthService {
       onSuccess: async () => {
         // Clear tokens and user data
         await tokenManager.clearTokens()
-        
+
         // Clear all cached queries
         queryClient.clear()
       }
@@ -187,7 +166,7 @@ class AuthService {
   checkAuthStatus = async () => {
     const token = await tokenManager.getAccessToken()
     const userData = await tokenManager.getUserData()
-    
+
     return {
       isAuthenticated: !!token,
       needsVerification: userData?.needsVerification ?? false,

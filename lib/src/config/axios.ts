@@ -13,7 +13,7 @@ const STORAGE_KEYS = {
 const client = axios.create({
   baseURL: env.API_URL,
   timeout: 15000,
-  headers: { 
+  headers: {
     'Content-Type': 'application/json'
   }
 })
@@ -61,7 +61,7 @@ let failedQueue: Array<{
 }> = []
 
 const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach(prom => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error)
     } else {
@@ -75,15 +75,22 @@ const processQueue = (error: any, token: string | null = null) => {
 client.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = await tokenManager.getAccessToken()
-    
+
     // Only add token if it exists and endpoint is not public
-    const publicEndpoints = ['/auth/login', '/auth/register', '/auth/verify-email', '/auth/resend-verification-otp']
-    const isPublicEndpoint = publicEndpoints.some(endpoint => config.url?.includes(endpoint))
-    
+    const publicEndpoints = [
+      '/auth/login',
+      '/auth/register',
+      '/auth/verify-email',
+      '/auth/resend-verification-otp'
+    ]
+    const isPublicEndpoint = publicEndpoints.some((endpoint) =>
+      config.url?.includes(endpoint)
+    )
+
     if (token && !isPublicEndpoint) {
       config.headers.Authorization = `Bearer ${token}`
     }
-    
+
     return config
   },
   (error) => Promise.reject(error)
@@ -114,18 +121,18 @@ client.interceptors.response.use(
       return new Promise((resolve, reject) => {
         failedQueue.push({ resolve, reject })
       })
-        .then(token => {
+        .then((token) => {
           originalRequest.headers.Authorization = `Bearer ${token}`
           return client(originalRequest)
         })
-        .catch(err => Promise.reject(err))
+        .catch((err) => Promise.reject(err))
     }
 
     isRefreshing = true
 
     try {
       const refreshToken = await tokenManager.getRefreshToken()
-      
+
       if (!refreshToken) {
         throw new Error('No refresh token available')
       }
@@ -144,12 +151,13 @@ client.interceptors.response.use(
 
       // IMPORTANT: This assumes backend returns tokens in response body
       // If backend only sets cookies, you'll need Approach B with cookie handling
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        response.data
 
       if (newAccessToken && newRefreshToken) {
         await tokenManager.setTokens(newAccessToken, newRefreshToken)
         processQueue(null, newAccessToken)
-        
+
         // Retry original request with new token
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
         return client(originalRequest)

@@ -62,12 +62,11 @@ export function useApiMutation<T, U>({
         url,
         data
       })
-      console.log(response);
       return response.data
     },
     onSuccess: async (data) => {
       await onSuccess?.(data)
-      
+
       invalidate?.forEach((key) =>
         queryClient.invalidateQueries({ queryKey: key })
       )
