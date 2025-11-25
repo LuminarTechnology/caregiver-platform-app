@@ -1,22 +1,24 @@
 {
   "expo": {
     "name": "Client",
-    "slug": "@caregiver-platform/client",
+    "slug": "Client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "@caregiver-platform/client",
+    "scheme": "Client",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.caregiver.client"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.caregiver.client"
     },
     "web": {
       "bundler": "metro",
