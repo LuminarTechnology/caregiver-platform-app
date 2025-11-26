@@ -8,7 +8,9 @@ export default function ServicesScreen() {
   const navigation = useNavigation()
 
   const handleSelect = () => {
-    navigation.navigate('Main' as never)
+    navigation.navigate('Onboarding' as never)
+    // navigation.navigate('ChildCare' as never)
+    // navigation.navigate('Main' as never)
   }
 
   return (
@@ -50,6 +52,7 @@ export default function ServicesScreen() {
           users="5,432+ Users"
           status="Active"
           onPress={handleSelect}
+          className="mb-4"
         />
 
         <ServiceCard
