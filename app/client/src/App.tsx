@@ -1,3 +1,4 @@
+import '../../../global.css'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { StatusBar, Text, View } from 'react-native'
 import { queryClient } from '@lib/hooks/useApi'
@@ -9,14 +10,16 @@ import React from 'react'
 
 const App = () => {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <RootNavigator />
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        <NavigationContainer>
+          <SafeAreaProvider>
+            <RootNavigator />
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   )
 }
 
