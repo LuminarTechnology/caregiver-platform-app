@@ -59,11 +59,13 @@ interface IMessage {
 interface IGetConversationMessages {
   success: boolean
   message: string
-  data: IMessage[]
-  total?: number
-  page?: number
-  limit?: number
-  totalPages?: number
+  data: {
+    messages: IMessage[]
+    total?: number
+    page?: number
+    limit?: number
+    totalPages?: number
+  }
 }
 
 interface IUpdateDelete {
@@ -87,7 +89,7 @@ class ChatService {
       key: queryKey.all('chat')
     })
 
-  getConversationMessagesById = (
+  getMessagesByConversationId = (
     conversationId: string,
     page: number,
     limit: number
@@ -110,7 +112,7 @@ class ChatService {
       invalidate: [queryKey.all('chat')]
     })
 
-  updateMarkSeen = (conversationId: string) =>
+  markConversationAsSeen = (conversationId: string) =>
     useApiMutation<null, IUpdateDelete>({
       url: `/chat/conversation/${conversationId}/mark-seen`,
       method: 'PATCH',

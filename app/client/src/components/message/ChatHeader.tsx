@@ -6,7 +6,7 @@ import { PhoneIcon, UserIcon } from '@lib/icons'
 import { useNavigation } from '@react-navigation/native'
 
 interface ChatHeaderProps {
-  userName?: string
+  fullName?: string
   isOnline?: boolean
   avatarUrl?: string
   onBackPress?: () => void
@@ -14,7 +14,7 @@ interface ChatHeaderProps {
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
-  userName = 'Unknown',
+  fullName = 'Unknown',
   isOnline = false,
   avatarUrl,
   onBackPress,
@@ -50,7 +50,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 
         <View>
           <Text className="text-lg font-semibold text-gray-900">
-            {userName}
+            {fullName}
           </Text>
           <View className="mt-0.5 flex-row items-center">
             <View

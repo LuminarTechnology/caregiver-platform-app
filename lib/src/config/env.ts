@@ -6,6 +6,6 @@ const environment: NODE_ENV = 'development'
 export const env = {
   API_URL:
     environment === 'development'
-      ? 'https://caregiver-platform-production.up.railway.app'
+      ? 'https://helpxcare.com'
       : 'https://api.example.com'
 } as const
