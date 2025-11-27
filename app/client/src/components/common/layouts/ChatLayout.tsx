@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ChatHeader from '../../message/ChatHeader'
 
 type Props = PropsWithChildren<{
-  userName?: string
+  fullName?: string
   isOnline?: boolean
   avatarUrl?: string
   onBackPress?: () => void
@@ -12,16 +12,16 @@ type Props = PropsWithChildren<{
 
 const ChatLayout = ({
   children,
-  userName = 'Support',
+  fullName = 'Support',
   isOnline = true,
   avatarUrl = '',
   onBackPress
 }: Props) => {
   return (
     <View className="bg-background flex-1">
-      <SafeAreaView edges={['top']} className="bg-white">
+      <SafeAreaView edges={['top']}>
         <ChatHeader
-          userName={userName}
+          fullName={fullName}
           isOnline={isOnline}
           avatarUrl={avatarUrl}
           onBackPress={onBackPress}
