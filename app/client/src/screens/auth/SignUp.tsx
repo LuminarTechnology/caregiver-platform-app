@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import InputField from 'lib/src/ui/InputField'
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import UserIcon from '@lib/icons/UserIcon'
 import MailIcon from '@lib/icons/MailIcon'
 import PhoneIcon from '@lib/icons/PhoneIcon'
-import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
+import { CheckMarkIcon } from '@lib/icons/CheckMarkIcon'
 import AuthLayout from '../../components/common/layouts/AuthLayout'
+import { authService } from '@lib/api'
+import { tokenManager } from '@lib/config/axios'
+import { RootStackParamList } from '../../navigation/types'
 
 const signUpSchema = z
   .object({
@@ -46,7 +49,8 @@ const signUpSchema = z
 type SignUpFormData = z.infer<typeof signUpSchema>
 
 const SignUp = () => {
-  const navigation = useNavigation()
+  const { mutate: register, isPending, error } = authService.register()
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState<boolean>(false)
@@ -72,9 +76,27 @@ const SignUp = () => {
   const agreed = watch('agreed')
 
   const onSubmit = async (data: SignUpFormData) => {
-    console.log('Form data:', data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log('Registration successful!')
+    const { agreed, confirmPassword, ...rest } = data
+    register(rest, {
+      onSuccess: async (data) => {
+        const result = data.data
+
+        await tokenManager.setUserData({
+          phone: result.phone,
+          needsVerification: true
+        })
+
+        navigation.navigate('Auth', {
+          screen: 'OTPVerification',
+          params: {
+            phone: result.phone
+          }
+        })
+      },
+      onError: (error) => {
+        Alert.alert('Error', error.message)
+      }
+    })
   }
 
   return (
@@ -156,9 +178,7 @@ const SignUp = () => {
                         value ? 'bg-primary border-primary' : 'border-gray-400'
                       }`}
                     >
-                      {value && (
-                        <CheckMarkIcon width="24" height="24" fill="#666" />
-                      )}
+                      {value && <CheckMarkIcon />}
                     </View>
                   </TouchableOpacity>
                   <Text className="text-dark flex-1 text-base leading-5">
@@ -193,7 +213,7 @@ const SignUp = () => {
             </Text>
             <TouchableOpacity
               onPress={() =>
-                (navigation as any).navigate('SignIn', { screen: 'SignIn' })
+                (navigation as any).navigate('Auth', { screen: 'SignIn' })
               }
             >
               <Text className="text-primary text-base font-semibold">
