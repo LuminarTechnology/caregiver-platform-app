@@ -10,12 +10,14 @@ interface DatePickerFieldProps {
   control: Control<any>
   name: string
   label?: string
+  labelStyle?: object
 }
 
 export const DatePickerField: React.FC<DatePickerFieldProps> = ({
   name,
   label,
-  control
+  control,
+  labelStyle
 }) => {
   const [show, setShow] = useState(false)
 
@@ -35,7 +37,7 @@ export const DatePickerField: React.FC<DatePickerFieldProps> = ({
       render={({ field: { value, onChange } }) => (
         <View>
           {label && (
-            <Text className="text-defaultBlack mb-3 text-base font-medium">
+            <Text className="mb-2 text-base font-medium " style={labelStyle}>
               {label}
             </Text>
           )}

@@ -12,6 +12,7 @@ interface ServiceCardProps {
   verifiedText?: string
   onPress?: () => void
   disabled?: boolean
+  className?: string
 }
 
 export default function ServiceCard({
@@ -23,7 +24,8 @@ export default function ServiceCard({
   status,
   verifiedText = 'All Verified',
   onPress,
-  disabled = false
+  disabled = false,
+  className
 }: ServiceCardProps) {
   const isActive = status === 'Active'
 
@@ -31,7 +33,7 @@ export default function ServiceCard({
     <View
       className={`rounded-xl border border-gray-100 bg-white p-8 ${
         !isActive ? 'opacity-70' : ''
-      }`}
+      } ${className}`}
       style={{
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },

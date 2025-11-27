@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -8,8 +8,11 @@ import GoogleIcon from '@lib/icons/GoogleIcon'
 import AppleIcon from '@lib/icons/AppleIcon'
 import InputField from 'lib/src/ui/InputField'
 import { useNavigation } from '@react-navigation/native'
-import CheckMarkIcon from '@lib/icons/CheckMarkIcon'
+import { CheckMarkIcon } from '@lib/icons/CheckMarkIcon'
 import AuthLayout from '../../components/common/layouts/AuthLayout'
+import { authService } from '@lib/api'
+import { useAuth } from '../../navigation/AuthContext'
+import { tokenManager } from '@lib/config/axios'
 
 const signInSchema = z.object({
   email: z
@@ -36,6 +39,7 @@ const signInSchema = z.object({
 type SignInFormData = z.infer<typeof signInSchema>
 
 const SignIn = () => {
+  const { mutate: login, isPending, error } = authService.login()
   const navigation = useNavigation()
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
 
@@ -55,11 +59,33 @@ const SignIn = () => {
   })
 
   const agreed = watch('agreed')
-
+  const { setAuthenticated } = useAuth()
   const onSubmit = async (data: SignInFormData) => {
-    console.log('Form data:', data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log('Login successful!')
+    login(
+      {
+        email: data.email,
+        password: data.password
+      },
+      {
+        onSuccess: async (data) => {
+          setAuthenticated(true)
+          const result = data.data
+
+          // Store tokens
+          await tokenManager.setTokens(result.accessToken, result.refreshToken)
+
+          // Store user data
+          await tokenManager.setUserData({
+            userId: result.userId,
+            email: result.email,
+            roles: result.roles
+          })
+        },
+        onError: (err) => {
+          Alert.alert('Error', err.message)
+        }
+      }
+    )
   }
 
   const handleSocialLogin = (platform: 'Facebook' | 'Google' | 'Apple') => {
@@ -120,9 +146,7 @@ const SignIn = () => {
                         value ? 'bg-primary border-primary' : 'border-gray-400'
                       }`}
                     >
-                      {value && (
-                        <CheckMarkIcon width="24" height="24" fill="#666" />
-                      )}
+                      {value && <CheckMarkIcon />}
                     </View>
                   </TouchableOpacity>
                   <Text className="text-dark flex-1 text-base leading-5">
