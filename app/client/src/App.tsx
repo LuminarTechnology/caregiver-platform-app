@@ -1,3 +1,4 @@
+import '../../../global.css'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { StatusBar, Text, View } from 'react-native'
 import { queryClient } from '@lib/hooks/useApi'
