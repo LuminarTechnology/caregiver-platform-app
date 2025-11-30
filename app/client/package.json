@@ -22,6 +22,8 @@
     "expo-system-ui": "*",
     "metro-config": "*",
     "metro-resolver": "*",
+    "react": "*",
+    "react-native": "*",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": "*",
     "react-native-safe-area-context": "*",
