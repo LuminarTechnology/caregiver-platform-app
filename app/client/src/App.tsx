@@ -8,6 +8,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import RootNavigator from './navigation/RootNavigator'
 import React from 'react'
 import { AuthProvider } from './navigation/AuthContext'
+import Mapbox from '@rnmapbox/maps'
+Mapbox.setAccessToken(
+  'pk.eyJ1Ijoic2Fyd2FyamFoaW4iLCJhIjoiY21pa2toZGtkMDlqbDNmc2YxODluOGJ4ZCJ9.lxPXrykID8aO1VRa-fyo2w'
+)
 
 const App = () => {
   return (
