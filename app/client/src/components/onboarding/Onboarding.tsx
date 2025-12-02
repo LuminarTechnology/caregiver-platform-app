@@ -89,6 +89,7 @@ export default function OnboardingSlider() {
           title="Get Started"
           onPress={() => {
             navigation.navigate('SignIn' as never)
+            // navigation.navigate('Profile' as never)
           }}
           buttonPrimary
         />
