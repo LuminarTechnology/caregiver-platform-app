@@ -6,7 +6,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import ChatLayout from '../../components/common/layouts/ChatLayout'
 import { chatService } from '@lib/api/chat'
 import { initConversation } from '@lib/config/chatClient'
-import { queryClient } from '@lib/hooks/useApi'
+import { queryClient, queryKey } from '@lib/hooks/useApi'
 
 // Twilio Conversation message shape (simplified)
 interface ITwilioMessage {
@@ -80,7 +80,7 @@ const ChatScreen: React.FC = () => {
   const createConversationCalled = useRef(false)
 
   useEffect(() => {
-    if (messagesData?.data?.messages && messages.length === 0) {
+    if (messagesData?.data?.messages) {
       setMessages(messagesData.data.messages)
     }
   }, [messagesData, params.conversationId])
@@ -104,9 +104,6 @@ const ChatScreen: React.FC = () => {
   useEffect(() => {
     async function setup() {
       if (!params.TwilioConversationSid) return
-      if (messages.length === 0 && messagesData?.data?.messages) {
-        setMessages(messagesData.data.messages)
-      }
 
       const conv: ITwilioConversation = await initConversation(
         params.TwilioConversationSid
@@ -143,7 +140,6 @@ const ChatScreen: React.FC = () => {
           ])
 
           queryClient.invalidateQueries({ queryKey: ['chat'] })
-          // queryClient.refetchQueries({ queryKey: ["chat"] })
         })
       }
     }
