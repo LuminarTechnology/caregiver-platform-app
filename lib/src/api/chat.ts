@@ -106,7 +106,7 @@ class ChatService {
     })
 
   createNewConversation = () =>
-    useApiMutation<{ identity: string }, ICreateConversationResponse>({
+    useApiMutation<{ receiverId: string }, ICreateConversationResponse>({
       url: '/chat/conversation',
       method: 'POST',
       invalidate: [queryKey.all('chat')]

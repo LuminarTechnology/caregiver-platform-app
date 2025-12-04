@@ -6,6 +6,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import ChatLayout from '../../components/common/layouts/ChatLayout'
 import { chatService } from '@lib/api/chat'
 import { initConversation } from '@lib/config/chatClient'
+import { queryClient } from '@lib/hooks/useApi'
 
 // Twilio Conversation message shape (simplified)
 interface ITwilioMessage {
@@ -25,6 +26,7 @@ interface ITwilioConversation {
 // Define the shape of the route parameters
 interface ChatRouteParams {
   fullName: string
+  receiverId: string
   isOnline?: boolean
   avatarUrl?: string
   conversationId: string
@@ -57,6 +59,7 @@ const ChatScreen: React.FC = () => {
   const params = route.params
 
   const fullName = params.fullName
+  const receiverId = params.receiverId
   const isOnline = params.isOnline ?? true
   const avatarUrl = params.avatarUrl ?? 'https://i.pravatar.cc/150?img=2'
 
@@ -68,22 +71,52 @@ const ChatScreen: React.FC = () => {
   const { mutate: triggerMarkSeen } = chatService.markConversationAsSeen(
     params.conversationId
   )
+  const { mutate: createConversation } = chatService.createNewConversation()
   const [messages, setMessages] = useState<IChatMessage[]>([])
   const [conversation, setConversation] = useState<ITwilioConversation | null>(
     null
   )
   const listenerAdded = useRef(false)
+  const createConversationCalled = useRef(false)
+
+  useEffect(() => {
+    if (messagesData?.data?.messages && messages.length === 0) {
+      setMessages(messagesData.data.messages)
+    }
+  }, [messagesData, params.conversationId])
+
+  useEffect(() => {
+    if (!receiverId && !createConversationCalled.current) return
+
+    createConversation(
+      { receiverId },
+      {
+        onSuccess: (res) => {
+          console.log('Existing OR new conversation:', res)
+        },
+        onError: (err) => {
+          console.error('Conversation create error:', err)
+        }
+      }
+    )
+  }, [])
 
   useEffect(() => {
     async function setup() {
       if (!params.TwilioConversationSid) return
-      setMessages(messagesData?.data?.messages || [])
+      if (messages.length === 0 && messagesData?.data?.messages) {
+        setMessages(messagesData.data.messages)
+      }
 
       const conv: ITwilioConversation = await initConversation(
         params.TwilioConversationSid
       )
+
+      console.log('berfore conv')
       if (!conv) return
       setConversation(conv)
+
+      console.log('after conv')
 
       if (!listenerAdded.current) {
         listenerAdded.current = true
@@ -108,6 +141,9 @@ const ChatScreen: React.FC = () => {
               }
             }
           ])
+
+          queryClient.invalidateQueries({ queryKey: ['chat'] })
+          // queryClient.refetchQueries({ queryKey: ["chat"] })
         })
       }
     }
@@ -118,7 +154,7 @@ const ChatScreen: React.FC = () => {
         conversation.removeAllListeners()
       }
     }
-  }, [messagesData, params.TwilioConversationSid])
+  }, [params.TwilioConversationSid])
 
   useEffect(() => {
     if (conversation) {

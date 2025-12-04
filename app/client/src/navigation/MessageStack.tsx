@@ -6,7 +6,9 @@ import MessageListScreen from '../screens/message/MessageListScreen'
 
 export type MessageStackParamList = {
   Message: undefined
-  Chat: { userId: string; name?: string; avatarUrl?: string } | undefined
+  Chat:
+    | { receiverId: string; fullName?: string; avatarUrl?: string }
+    | undefined
 }
 
 const Stack = createNativeStackNavigator<MessageStackParamList>()

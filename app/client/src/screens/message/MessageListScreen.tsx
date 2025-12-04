@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import { Conversation } from '../../components/message/ConversationItem'
 import Header from '../../components/message/Header'
@@ -7,6 +7,7 @@ import { useChatContext } from '@lib/hooks/useChatContext'
 import { chatService } from '@lib/api/chat'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ConversationItem from '../../components/message/ConversationItem'
+import { useFocusEffect } from '@react-navigation/native'
 
 const renderMessage: ListRenderItem<Conversation> = ({ item }) => (
   <ConversationItem conversation={item} />
@@ -16,7 +17,8 @@ const MessageListScreen: React.FC = () => {
   const { setupChat, setToken, setIdentity } = useChatContext()
   const { data } = chatService.getChatToken()
 
-  const { data: conversationsData } = chatService.getAllConversations()
+  const { data: conversationsData, refetch: refetchConversations } =
+    chatService.getAllConversations()
 
   useEffect(() => {
     const token = data?.data?.token
@@ -29,7 +31,15 @@ const MessageListScreen: React.FC = () => {
     if (identity) {
       setIdentity(identity as string)
     }
-  }, [setupChat, data, setToken, setIdentity])
+
+    refetchConversations?.()
+  }, [setupChat, data, setToken, setIdentity, refetchConversations])
+
+  useFocusEffect(
+    useCallback(() => {
+      refetchConversations?.()
+    }, [refetchConversations])
+  )
 
   return (
     <SafeAreaView className="flex-1">

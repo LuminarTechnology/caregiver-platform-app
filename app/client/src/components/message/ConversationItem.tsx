@@ -54,6 +54,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             conversationId: conversation.id,
             TwilioConversationSid: conversation.twilioConversationSid,
             fullName: otherParticipant.fullName,
+            receiverId: otherParticipant.id,
             avatarUrl: '',
             isOnline: true
           }
