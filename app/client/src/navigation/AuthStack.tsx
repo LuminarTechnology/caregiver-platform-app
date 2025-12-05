@@ -6,9 +6,12 @@ import OnboardingScreen from '../screens/OnboardingScreen'
 import SplashScreen from '../screens/SplashScreen'
 import OTPVerification from '../screens/auth/OTPVerification'
 import MapScreen from '../screens/MapScreen'
+import MiniMapScreen from '../components/map/MiniMapScreen'
+import FullMapScreen from '../components/map/FullMapScreen'
 
 export type AuthStackParamList = {
-  MapScreen: undefined
+  MiniMapScreen: undefined
+  FullMap: undefined
   Splash: undefined
   Onboarding: undefined
   SignIn: undefined
@@ -21,7 +24,8 @@ const Stack = createNativeStackNavigator<AuthStackParamList>()
 export default function AuthStack() {
   return (
     <Stack.Navigator id={undefined} screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MapScreen" component={MapScreen} />
+      <Stack.Screen name="MiniMapScreen" component={MiniMapScreen} />
+      <Stack.Screen name="FullMap" component={FullMapScreen} />
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="SignIn" component={SignIn} />
